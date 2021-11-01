@@ -62,10 +62,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnGrabarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setTitle("Rotisería");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 0));
 
@@ -115,7 +115,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnAlfabetico.setActionCommand("");
         rbtnAlfabetico.setBorderPainted(true);
         rbtnAlfabetico.setFocusCycleRoot(true);
-        rbtnAlfabetico.setOpaque(false);
         rbtnAlfabetico.setPreferredSize(new java.awt.Dimension(174, 19));
         jPanel2.add(rbtnAlfabetico);
 
@@ -127,7 +126,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnPrioridad.setActionCommand("");
         rbtnPrioridad.setBorderPainted(true);
         rbtnPrioridad.setFocusCycleRoot(true);
-        rbtnPrioridad.setOpaque(false);
         rbtnPrioridad.setPreferredSize(new java.awt.Dimension(171, 19));
         rbtnPrioridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,18 +136,28 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         btnClientes.setBackground(new java.awt.Color(225, 235, 244));
         btnClientes.setForeground(new java.awt.Color(0, 0, 0));
         btnClientes.setText("Clientes");
         btnClientes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnClientes);
 
         btnCategorias.setBackground(new java.awt.Color(225, 235, 244));
         btnCategorias.setForeground(new java.awt.Color(0, 0, 0));
         btnCategorias.setText("Categorías");
         btnCategorias.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCategorias);
 
         btnProductos.setBackground(new java.awt.Color(225, 235, 244));
@@ -166,7 +174,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5);
 
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         cmbCategoria.setBackground(new java.awt.Color(204, 204, 204));
         cmbCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -209,11 +217,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton8.setText("Empanada");
         jButton8.setToolTipText("");
         jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         pnlProductos.add(jButton8);
 
         jPanel1.add(pnlProductos);
 
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         lstProductosDePedido.setBackground(new java.awt.Color(255, 255, 255));
         lstProductosDePedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 10)); // NOI18N
@@ -240,7 +253,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1);
 
-        setBounds(0, 0, 919, 520);
+        setSize(new java.awt.Dimension(919, 520));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfdObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdObservacionesActionPerformed
@@ -255,40 +269,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        VentanaCliente agregarCliente= new VentanaCliente();
+        agregarCliente.setVisible(true);
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        VentanaCategoria ventCategoria=new VentanaCategoria();
+        ventCategoria.setVisible(true);
+    }//GEN-LAST:event_btnCategoriasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
