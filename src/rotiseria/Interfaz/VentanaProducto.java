@@ -44,7 +44,7 @@ public class VentanaProducto extends javax.swing.JFrame {
         btnCancelarProducto = new javax.swing.JButton();
         btnAgregarProducto = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Producto");
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -106,8 +106,6 @@ public class VentanaProducto extends javax.swing.JFrame {
 
         jPanel6.setOpaque(false);
 
-        btnCancelarProducto.setBackground(new java.awt.Color(191, 215, 236));
-        btnCancelarProducto.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelarProducto.setText("Cancelar");
         btnCancelarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,8 +113,6 @@ public class VentanaProducto extends javax.swing.JFrame {
             }
         });
 
-        btnAgregarProducto.setBackground(new java.awt.Color(191, 215, 236));
-        btnAgregarProducto.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregarProducto.setText("Agregar");
         btnAgregarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,7 +211,8 @@ public class VentanaProducto extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(0, 0, 243, 353);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreProductoActionPerformed
@@ -227,11 +224,11 @@ public class VentanaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPrecioProductoActionPerformed
 
     private void btnCancelarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarProductoActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     /**

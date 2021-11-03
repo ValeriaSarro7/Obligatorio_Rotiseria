@@ -71,14 +71,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel2.setLayout(new java.awt.GridLayout(3, 0));
 
-        elegirCliente.setBackground(new java.awt.Color(225, 235, 244));
         elegirCliente.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        elegirCliente.setForeground(new java.awt.Color(0, 0, 0));
         elegirCliente.setText("Elegir Cliente");
-        elegirCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         elegirCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         elegirCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         elegirCliente.setOpaque(true);
+        elegirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elegirClienteActionPerformed(evt);
+            }
+        });
         jPanel2.add(elegirCliente);
 
         lblDatosCliente.setBackground(new java.awt.Color(204, 255, 204));
@@ -138,10 +140,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnClientes.setBackground(new java.awt.Color(225, 235, 244));
-        btnClientes.setForeground(new java.awt.Color(0, 0, 0));
         btnClientes.setText("Clientes");
-        btnClientes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -149,10 +148,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel5.add(btnClientes);
 
-        btnCategorias.setBackground(new java.awt.Color(225, 235, 244));
-        btnCategorias.setForeground(new java.awt.Color(0, 0, 0));
         btnCategorias.setText("Categorías");
-        btnCategorias.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriasActionPerformed(evt);
@@ -160,10 +156,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel5.add(btnCategorias);
 
-        btnProductos.setBackground(new java.awt.Color(225, 235, 244));
-        btnProductos.setForeground(new java.awt.Color(0, 0, 0));
         btnProductos.setText("Productos");
-        btnProductos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
@@ -171,10 +164,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         });
         jPanel5.add(btnProductos);
 
-        btnVerPedidos.setBackground(new java.awt.Color(225, 235, 244));
-        btnVerPedidos.setForeground(new java.awt.Color(0, 0, 0));
         btnVerPedidos.setText("Ver Pedidos");
-        btnVerPedidos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnVerPedidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVerPedidosActionPerformed(evt);
@@ -191,7 +181,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setToolTipText("");
         cmbCategoria.setAutoscrolls(true);
-        cmbCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(88, 142, 210)));
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
@@ -203,11 +192,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
-        btnReiniciarPedido.setBackground(new java.awt.Color(225, 235, 244));
         btnReiniciarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnReiniciarPedido.setForeground(new java.awt.Color(0, 0, 0));
         btnReiniciarPedido.setText("Reiniciar Pedido");
-        btnReiniciarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel6.add(btnReiniciarPedido);
 
         lblCostoTotal.setBackground(new java.awt.Color(204, 255, 204));
@@ -245,25 +231,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel7.add(jScrollPane1);
 
-        btnEliminarItem.setBackground(new java.awt.Color(225, 235, 244));
         btnEliminarItem.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnEliminarItem.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarItem.setText("Eliminar Item");
-        btnEliminarItem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel7.add(btnEliminarItem);
 
-        btnGrabarPedido.setBackground(new java.awt.Color(225, 235, 244));
         btnGrabarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnGrabarPedido.setForeground(new java.awt.Color(0, 0, 0));
         btnGrabarPedido.setText("Grabar Pedido");
-        btnGrabarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel7.add(btnGrabarPedido);
 
         jPanel1.add(jPanel7);
 
         getContentPane().add(jPanel1);
 
-        setSize(new java.awt.Dimension(919, 520));
+        setSize(new java.awt.Dimension(919, 444));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -302,6 +282,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaPedido verPedido= new VentanaPedido();
         verPedido.setVisible(true);
     }//GEN-LAST:event_btnVerPedidosActionPerformed
+
+    private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
+        VentanaElegirCliente elegirCliente=new VentanaElegirCliente();
+        elegirCliente.setVisible(true);
+    }//GEN-LAST:event_elegirClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;

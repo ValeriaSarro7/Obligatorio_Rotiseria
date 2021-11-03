@@ -44,10 +44,11 @@ public class VentanaCliente extends javax.swing.JFrame {
         btnAgregarCliente = new javax.swing.JButton();
         btnCancelarCliente = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ingreso Cliente");
         setBackground(new java.awt.Color(255, 255, 255));
         setSize(new java.awt.Dimension(0, 0));
+        setType(java.awt.Window.Type.POPUP);
 
         jPanel3.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -110,20 +111,14 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         jPanel4.setOpaque(false);
 
-        btnAgregarCliente.setBackground(new java.awt.Color(191, 215, 236));
-        btnAgregarCliente.setForeground(new java.awt.Color(0, 0, 0));
         btnAgregarCliente.setText("Agregar");
-        btnAgregarCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarClienteActionPerformed(evt);
             }
         });
 
-        btnCancelarCliente.setBackground(new java.awt.Color(191, 215, 236));
-        btnCancelarCliente.setForeground(new java.awt.Color(0, 0, 0));
         btnCancelarCliente.setText("Cancelar");
-        btnCancelarCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarClienteActionPerformed(evt);
@@ -199,7 +194,8 @@ public class VentanaCliente extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        setBounds(0, 0, 317, 213);
+        pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreClienteActionPerformed
