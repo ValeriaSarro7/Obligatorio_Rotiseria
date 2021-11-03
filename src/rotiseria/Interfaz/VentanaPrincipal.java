@@ -308,8 +308,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         int respuesta= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
         //0 es OK
         //2 es Cancel
-        if (respuesta==1){
-            this.dispose();
+        if (respuesta==0){
+            
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
 
