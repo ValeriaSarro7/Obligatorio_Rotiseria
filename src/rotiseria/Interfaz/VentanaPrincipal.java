@@ -7,6 +7,8 @@ package rotiseria.Interfaz;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -62,23 +64,25 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnGrabarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setAlwaysOnTop(true);
+        setTitle("Rotisería");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 0));
 
         jPanel2.setLayout(new java.awt.GridLayout(3, 0));
 
-        elegirCliente.setBackground(new java.awt.Color(225, 235, 244));
         elegirCliente.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        elegirCliente.setForeground(new java.awt.Color(0, 0, 0));
         elegirCliente.setText("Elegir Cliente");
-        elegirCliente.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         elegirCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         elegirCliente.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         elegirCliente.setOpaque(true);
+        elegirCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                elegirClienteActionPerformed(evt);
+            }
+        });
         jPanel2.add(elegirCliente);
 
         lblDatosCliente.setBackground(new java.awt.Color(204, 255, 204));
@@ -115,7 +119,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnAlfabetico.setActionCommand("");
         rbtnAlfabetico.setBorderPainted(true);
         rbtnAlfabetico.setFocusCycleRoot(true);
-        rbtnAlfabetico.setOpaque(false);
         rbtnAlfabetico.setPreferredSize(new java.awt.Dimension(174, 19));
         jPanel2.add(rbtnAlfabetico);
 
@@ -127,7 +130,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnPrioridad.setActionCommand("");
         rbtnPrioridad.setBorderPainted(true);
         rbtnPrioridad.setFocusCycleRoot(true);
-        rbtnPrioridad.setOpaque(false);
         rbtnPrioridad.setPreferredSize(new java.awt.Dimension(171, 19));
         rbtnPrioridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,42 +140,49 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2);
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnClientes.setBackground(new java.awt.Color(225, 235, 244));
-        btnClientes.setForeground(new java.awt.Color(0, 0, 0));
         btnClientes.setText("Clientes");
-        btnClientes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnClientes);
 
-        btnCategorias.setBackground(new java.awt.Color(225, 235, 244));
-        btnCategorias.setForeground(new java.awt.Color(0, 0, 0));
         btnCategorias.setText("Categorías");
-        btnCategorias.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnCategorias);
 
-        btnProductos.setBackground(new java.awt.Color(225, 235, 244));
-        btnProductos.setForeground(new java.awt.Color(0, 0, 0));
         btnProductos.setText("Productos");
-        btnProductos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnProductos);
 
-        btnVerPedidos.setBackground(new java.awt.Color(225, 235, 244));
-        btnVerPedidos.setForeground(new java.awt.Color(0, 0, 0));
         btnVerPedidos.setText("Ver Pedidos");
-        btnVerPedidos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVerPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerPedidosActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnVerPedidos);
 
         jPanel1.add(jPanel5);
 
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         cmbCategoria.setBackground(new java.awt.Color(204, 204, 204));
         cmbCategoria.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setToolTipText("");
         cmbCategoria.setAutoscrolls(true);
-        cmbCategoria.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(88, 142, 210)));
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
@@ -185,11 +194,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel6.setLayout(new java.awt.GridLayout(2, 0));
 
-        btnReiniciarPedido.setBackground(new java.awt.Color(225, 235, 244));
         btnReiniciarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnReiniciarPedido.setForeground(new java.awt.Color(0, 0, 0));
         btnReiniciarPedido.setText("Reiniciar Pedido");
-        btnReiniciarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel6.add(btnReiniciarPedido);
 
         lblCostoTotal.setBackground(new java.awt.Color(204, 255, 204));
@@ -209,11 +215,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton8.setText("Empanada");
         jButton8.setToolTipText("");
         jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         pnlProductos.add(jButton8);
 
         jPanel1.add(pnlProductos);
 
-        jPanel7.setLayout(new java.awt.GridLayout());
+        jPanel7.setLayout(new java.awt.GridLayout(1, 0));
 
         lstProductosDePedido.setBackground(new java.awt.Color(255, 255, 255));
         lstProductosDePedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 10)); // NOI18N
@@ -222,25 +233,30 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         jPanel7.add(jScrollPane1);
 
-        btnEliminarItem.setBackground(new java.awt.Color(225, 235, 244));
         btnEliminarItem.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnEliminarItem.setForeground(new java.awt.Color(0, 0, 0));
         btnEliminarItem.setText("Eliminar Item");
-        btnEliminarItem.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarItemActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnEliminarItem);
 
-        btnGrabarPedido.setBackground(new java.awt.Color(225, 235, 244));
         btnGrabarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        btnGrabarPedido.setForeground(new java.awt.Color(0, 0, 0));
         btnGrabarPedido.setText("Grabar Pedido");
-        btnGrabarPedido.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGrabarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarPedidoActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnGrabarPedido);
 
         jPanel1.add(jPanel7);
 
         getContentPane().add(jPanel1);
 
-        setBounds(0, 0, 919, 520);
+        setSize(new java.awt.Dimension(919, 444));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfdObservacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdObservacionesActionPerformed
@@ -255,40 +271,47 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VentanaPrincipal().setVisible(true);
-            }
-        });
-    }
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        VentanaCliente agregarCliente= new VentanaCliente();
+        agregarCliente.setVisible(true);
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        VentanaCategoria ventCategoria=new VentanaCategoria();
+        ventCategoria.setVisible(true);
+    }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        VentanaProducto agregarProducto= new VentanaProducto();
+        agregarProducto.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
+        VentanaPedido verPedido= new VentanaPedido();
+        verPedido.setVisible(true);
+    }//GEN-LAST:event_btnVerPedidosActionPerformed
+
+    private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
+        VentanaElegirCliente elegirCliente=new VentanaElegirCliente();
+        elegirCliente.setVisible(true);
+    }//GEN-LAST:event_elegirClienteActionPerformed
+
+    private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
+        showMessageDialog(null,"Pedido grabado con exito","Pedido grabado", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_btnGrabarPedidoActionPerformed
+
+    private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
+        int respuesta= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
+        //0 es OK
+        //2 es Cancel
+        if (respuesta==1){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnEliminarItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
