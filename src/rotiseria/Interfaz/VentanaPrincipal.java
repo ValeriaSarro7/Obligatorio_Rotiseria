@@ -164,12 +164,22 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnProductos.setForeground(new java.awt.Color(0, 0, 0));
         btnProductos.setText("Productos");
         btnProductos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnProductos);
 
         btnVerPedidos.setBackground(new java.awt.Color(225, 235, 244));
         btnVerPedidos.setForeground(new java.awt.Color(0, 0, 0));
         btnVerPedidos.setText("Ver Pedidos");
         btnVerPedidos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVerPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerPedidosActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnVerPedidos);
 
         jPanel1.add(jPanel5);
@@ -282,6 +292,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaCategoria ventCategoria=new VentanaCategoria();
         ventCategoria.setVisible(true);
     }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        VentanaProducto agregarProducto= new VentanaProducto();
+        agregarProducto.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
+        VentanaPedido verPedido= new VentanaPedido();
+        verPedido.setVisible(true);
+    }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
