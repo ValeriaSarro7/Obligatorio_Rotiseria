@@ -320,11 +320,9 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblClientePedido" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="lblClientePedidoSeleccionado" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblClientePedido" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Component id="lblClientePedidoSeleccionado" min="-2" pref="33" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblPrecio" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="lblPrecioPedidoSeleccionado" alignment="1" min="-2" pref="33" max="-2" attributes="0"/>
                   </Group>

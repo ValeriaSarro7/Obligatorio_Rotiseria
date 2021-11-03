@@ -7,6 +7,8 @@ package rotiseria.Interfaz;
 
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
+import javax.swing.JOptionPane;
+import static javax.swing.JOptionPane.showMessageDialog;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -233,10 +235,20 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         btnEliminarItem.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
         btnEliminarItem.setText("Eliminar Item");
+        btnEliminarItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarItemActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnEliminarItem);
 
         btnGrabarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
         btnGrabarPedido.setText("Grabar Pedido");
+        btnGrabarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGrabarPedidoActionPerformed(evt);
+            }
+        });
         jPanel7.add(btnGrabarPedido);
 
         jPanel1.add(jPanel7);
@@ -287,6 +299,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         VentanaElegirCliente elegirCliente=new VentanaElegirCliente();
         elegirCliente.setVisible(true);
     }//GEN-LAST:event_elegirClienteActionPerformed
+
+    private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
+        showMessageDialog(null,"Pedido grabado con exito","Pedido grabado", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_btnGrabarPedidoActionPerformed
+
+    private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
+        int respuesta= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
+        //0 es OK
+        //2 es Cancel
+        if (respuesta==1){
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnEliminarItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
