@@ -9,6 +9,9 @@ public class Sistema {
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
 
+    public Sistema() {
+    }
+
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
