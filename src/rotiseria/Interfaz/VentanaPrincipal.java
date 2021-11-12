@@ -20,12 +20,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  */
 public class VentanaPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPrincipal
-     */
+    private Sistema sistema= new Sistema();
     public VentanaPrincipal() {
         initComponents();
-        Sistema sistema= new Sistema();
     }
 
     @SuppressWarnings("unchecked")
@@ -272,7 +269,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        VentanaCliente agregarCliente= new VentanaCliente();
+        VentanaCliente agregarCliente= new VentanaCliente(sistema);
         agregarCliente.setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
 

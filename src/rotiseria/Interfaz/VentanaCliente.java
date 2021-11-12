@@ -6,6 +6,7 @@
 package rotiseria.Interfaz;
 
 import dominio.Cliente;
+import dominio.Sistema;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -15,20 +16,21 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class VentanaCliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaCliente
-     */
-    public VentanaCliente() {
+    private Sistema sistema;
+    
+    public VentanaCliente(Sistema sistema) {
         initComponents();
+        this.sistema=sistema;
+        
     }
 
-    private Cliente datosCliente() {   
+    private boolean datosCliente() {   
         try{
             txtTelefonoCliente.getText();
         }catch(NumberFormatException e){
             JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
         }
-        return new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(),txtTelefonoCliente.getText());
+        return sistema.existeCliente(txtNombreCliente.getText(), txtDireccionCliente.getText(),txtTelefonoCliente.getText());
     }
 
     /**
@@ -222,7 +224,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionClienteActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        if(this.datosCliente().validarCliente()){
+        if(this.datosCliente()){
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }

@@ -43,4 +43,18 @@ public class Sistema {
     public void setListaProductos(ArrayList<Producto> listaProductos) {
         this.listaProductos = listaProductos;
     }
+    
+    public boolean existeCliente (String nombre, String direccion, String numero){
+        boolean existe=false;
+        Iterator<Cliente> it=this.listaClientes.iterator();
+        while(it.hasNext()){
+            if(it.next().getNombre().equalsIgnoreCase(numero)){
+                existe=true;
+            }else{
+                new Cliente(nombre, direccion, numero);
+            }
+        }
+        return existe; 
+    }
+    
 }
