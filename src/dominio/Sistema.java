@@ -77,5 +77,14 @@ public class Sistema {
     public Cliente encontrarCliente(String unNombre){
         return this.getListaClientes().get(unNombre);
     }
+    public String[] filtrarLista(String filtro){
+        String lis="";
+        for(int i=0; i<obtenerClaveClientes().length; i++){
+            if(obtenerClaveClientes()[i].contains(filtro)){
+                lis+=obtenerClaveClientes()[i]+";";
+            }
+        }
+        return lis.split(";");
+    }
     
 }

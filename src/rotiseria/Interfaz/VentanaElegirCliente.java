@@ -20,10 +20,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
+        setLista(sistema.obtenerClaveClientes());
     }
     
-    private void lstClientesECliente(java.awt.event.ActionEvent evt){
-        lstClientesECliente.setListData(sistema.obtenerClaveClientes());
+    private void setLista (String[] lista){
+        lstClientesECliente.setListData(lista);
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +76,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
 
         txtClienteECliente.setBackground(new java.awt.Color(204, 255, 204));
         txtClienteECliente.setForeground(new java.awt.Color(0, 0, 0));
+        txtClienteECliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClienteEClienteActionPerformed(evt);
+            }
+        });
 
         btnBuscarECliente.setText("Buscar");
         btnBuscarECliente.addActionListener(new java.awt.event.ActionListener() {
@@ -193,7 +199,8 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEClienteActionPerformed
-        // TODO add your handling code here:
+        String clave= txtClienteECliente.getText();
+        this.sistema.filtrarLista(clave);
     }//GEN-LAST:event_btnBuscarEClienteActionPerformed
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
@@ -204,6 +211,10 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
         showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
+
+    private void txtClienteEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteEClienteActionPerformed
+        
+    }//GEN-LAST:event_txtClienteEClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarECliente;
