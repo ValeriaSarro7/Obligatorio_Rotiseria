@@ -5,6 +5,7 @@
  */
 package rotiseria.Interfaz;
 
+import dominio.Cliente;
 import dominio.Sistema;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -16,6 +17,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;
+    public String cliente;
     
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
@@ -25,6 +27,9 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
+    }
+    public void obtenerNombreCliente(){
+        this.cliente=(String)lstClientesECliente.getSelectedValue();
     }
 
     @SuppressWarnings("unchecked")
@@ -67,6 +72,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         lstClientesECliente.setBackground(new java.awt.Color(204, 255, 204));
+        lstClientesECliente.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                lstClientesEClienteValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(lstClientesECliente);
 
         jPanel4.add(jScrollPane1);
@@ -204,10 +214,12 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarEClienteActionPerformed
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
-        // TODO add your handling code here:
+        txtClienteECliente.setText("");
+        setLista(sistema.obtenerClaveClientes());
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
+        obtenerNombreCliente();
         showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
@@ -215,6 +227,10 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     private void txtClienteEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteEClienteActionPerformed
         
     }//GEN-LAST:event_txtClienteEClienteActionPerformed
+
+    private void lstClientesEClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClientesEClienteValueChanged
+     
+    }//GEN-LAST:event_lstClientesEClienteValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarECliente;

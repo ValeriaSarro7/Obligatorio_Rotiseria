@@ -225,6 +225,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         if(!this.datosCliente()){
+            this.sistema.setListaClientes(txtNombreCliente.getText(), new Cliente (txtNombreCliente.getText(), txtDireccionCliente.getText(),txtTelefonoCliente.getText()));
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else{
