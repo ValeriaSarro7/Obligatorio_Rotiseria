@@ -200,7 +200,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private void btnBuscarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEClienteActionPerformed
         String clave= txtClienteECliente.getText();
-        this.sistema.filtrarLista(clave);
+        setLista(this.sistema.filtrarLista(clave));
     }//GEN-LAST:event_btnBuscarEClienteActionPerformed
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
