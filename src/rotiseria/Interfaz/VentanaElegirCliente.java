@@ -17,7 +17,6 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;
-    public String cliente;
     
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
@@ -28,8 +27,9 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
     }
-    public void obtenerNombreCliente(){
-        this.cliente=(String)lstClientesECliente.getSelectedValue();
+    public String obtenerNombreCliente(){
+        String cliente=(String)lstClientesECliente.getSelectedValue();
+        return cliente;
     }
 
     @SuppressWarnings("unchecked")

@@ -80,7 +80,7 @@ public class Sistema {
     public String[] filtrarLista(String filtro){
         String lis="";
         for(int i=0; i<obtenerClaveClientes().length; i++){
-            if(obtenerClaveClientes()[i].contains(filtro)){
+            if(obtenerClaveClientes()[i].toUpperCase().contains(filtro.toLowerCase())){
                 lis+=obtenerClaveClientes()[i]+";";
             }
         }

@@ -26,7 +26,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             this.sistema=unSistema;
     }
     public void clienteElegido(String unNombre){
-        
+        lblDatosCliente.setText(this.sistema.darCliente(unNombre).toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -295,7 +295,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
         VentanaElegirCliente elegirCliente=new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
-        String nombreCliente=elegirCliente.cliente;
+        clienteElegido(elegirCliente.obtenerNombreCliente());
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
