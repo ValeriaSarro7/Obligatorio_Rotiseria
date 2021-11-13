@@ -1,9 +1,15 @@
 
 package dominio;
 
+import java.io.*;;
 import java.util.*;
+import java.util.*;import java.util.*;
+import java.util.*;
+import java.util.*;
+import java.util.*;import java.util.*;
+import java.util.*;import java.util.*;
 
-public class Sistema {
+public class Sistema implements Serializable {
     private HashMap<String,Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
@@ -85,6 +91,13 @@ public class Sistema {
             }
         }
         return lis.split(";");
+    }
+    public void guardarCliente(String clave) throws FileNotFoundException, IOException{
+        Cliente unCliente=encontrarCliente(clave);
+        FileOutputStream cliente= new FileOutputStream("Cliente elegido");
+        ObjectOutputStream out=new ObjectOutputStream(cliente);
+        out.writeObject(unCliente);
+        out.close();
     }
     
 }

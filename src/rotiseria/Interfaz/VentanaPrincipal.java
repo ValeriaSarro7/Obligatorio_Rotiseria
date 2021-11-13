@@ -5,7 +5,14 @@
  */
 package rotiseria.Interfaz;
 
+import dominio.Cliente;
 import dominio.Sistema;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
 import javax.swing.JOptionPane;
@@ -25,8 +32,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             initComponents();
             this.sistema=unSistema;
     }
-    public void clienteElegido(String unNombre){
-        lblDatosCliente.setText(this.sistema.darCliente(unNombre).toString());
+    public void clienteElegido(Cliente unCliente){
+        lblDatosCliente.setText(unCliente.toString());
     }
 
     @SuppressWarnings("unchecked")
@@ -293,9 +300,26 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        VentanaElegirCliente elegirCliente=new VentanaElegirCliente(sistema);
-        elegirCliente.setVisible(true);
-        clienteElegido(elegirCliente.obtenerNombreCliente());
+        FileInputStream cliente=null;
+        try {
+            VentanaElegirCliente elegirCliente=new VentanaElegirCliente(sistema);
+            elegirCliente.setVisible(true);
+            cliente = new FileInputStream("Cliente elegido");
+            ObjectInputStream in=new ObjectInputStream(cliente);
+            Cliente client=(Cliente)in.readObject();
+            in.close();
+            clienteElegido(client);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } catch (IOException | ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                cliente.close();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR GUARDAR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
