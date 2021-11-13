@@ -4,20 +4,28 @@ package dominio;
 import java.util.*;
 
 public class Sistema {
-    private ArrayList<Cliente> listaClientes;
+    private HashMap<String,Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
 
     public Sistema() {
+        listaClientes=new HashMap<String, Cliente>();
+        listaCategorias=new ArrayList<Categoria>();
+        listaPedidos=new ArrayList<Pedido>();
+        listaProductos=new ArrayList<Producto>();
     }
 
-    public ArrayList<Cliente> getListaClientes() {
+    public HashMap<String,Cliente> getListaClientes() {
         return listaClientes;
     }
 
-    public void setListaClientes(ArrayList<Cliente> listaClientes) {
-        this.listaClientes = listaClientes;
+    public void setListaClientes(String nombre, Cliente cliente) {
+        this.getListaClientes().put(nombre, cliente);
+    }
+    
+    public Cliente darCliente(String nombre){
+        return this.getListaClientes().get(nombre);
     }
 
     public ArrayList<Categoria> getListaCategorias() {
@@ -46,15 +54,28 @@ public class Sistema {
     
     public boolean existeCliente (String nombre, String direccion, String numero){
         boolean existe=false;
-        Iterator<Cliente> it=this.listaClientes.iterator();
-        while(it.hasNext()){
-            if(it.next().getNombre().equalsIgnoreCase(numero)){
+        String clave="";
+        Iterator<String> it=this.getListaClientes().keySet().iterator();
+        while(it.hasNext()&&!existe){
+            clave=(String) it.next();
+            //no me deja poner ignore case
+            if(this.darCliente(clave).equals(nombre)){
                 existe=true;
-            }else{
-                new Cliente(nombre, direccion, numero);
             }
         }
+        if(!existe){
+            new Cliente(nombre, direccion, numero);
+        }
         return existe; 
+    }
+    public String[] obtenerClaveClientes(){
+        return (this.getListaClientes().keySet().toArray(new String[this.getListaClientes().size()]));
+    }
+    public Cliente[] obtenerClientes(){
+        return(this.getListaClientes().values().toArray(new Cliente[this.getListaClientes().size()]));
+    }
+    public Cliente encontrarCliente(String unNombre){
+        return this.getListaClientes().get(unNombre);
     }
     
 }

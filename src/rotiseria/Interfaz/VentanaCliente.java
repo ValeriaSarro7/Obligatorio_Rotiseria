@@ -224,9 +224,11 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionClienteActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        if(this.datosCliente()){
+        if(!this.datosCliente()){
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
+        }else{
+            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
         }
         
     }//GEN-LAST:event_btnAgregarClienteActionPerformed

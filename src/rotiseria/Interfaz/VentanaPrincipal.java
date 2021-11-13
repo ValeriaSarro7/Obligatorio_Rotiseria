@@ -289,7 +289,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        VentanaElegirCliente elegirCliente=new VentanaElegirCliente();
+        VentanaElegirCliente elegirCliente=new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
     }//GEN-LAST:event_elegirClienteActionPerformed
 
