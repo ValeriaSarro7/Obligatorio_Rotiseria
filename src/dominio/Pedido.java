@@ -4,7 +4,21 @@ package dominio;
 import java.util.*;
 
 public class Pedido {
+    
+    private ArrayList<Producto> listaProdcutos;
+    private int numero;
+    private Cliente unCliente;
+    private int precioTotal;
+    private String observaciones;
 
+    public Pedido(ArrayList<Producto> listaProdcutos, int numero, Cliente unCliente, int precioTotal, String observaciones) {
+        this.listaProdcutos = listaProdcutos;
+        this.numero = numero;
+        this.unCliente = unCliente;
+        this.precioTotal = precioTotal;
+        this.observaciones = observaciones;
+    }
+    
     public ArrayList<Producto> getListaProdcutos() {
         return listaProdcutos;
     }
@@ -44,9 +58,10 @@ public class Pedido {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
-    private ArrayList<Producto> listaProdcutos;
-    private int numero;
-    private Cliente unCliente;
-    private int precioTotal;
-    private String observaciones;
+    
+    @Override
+    public String toString(){
+        return this.getNumero()+"\n"+getUnCliente();
+    }
+    
 }

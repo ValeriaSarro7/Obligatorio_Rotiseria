@@ -119,5 +119,40 @@ public class Sistema implements Serializable {
         out.writeObject(unCliente);
         out.close();
     }
+    public String[] arrayPedidos(ArrayList<Pedido> listaPedidos){
+        String[] lista=new String[listaPedidos.size()];
+        int cont=0;
+        Iterator<Pedido> it=listaPedidos.iterator();
+        while(it.hasNext()){
+            Pedido unP=it.next();
+            lista[cont]=unP.toString();
+            cont++;
+        }
+        return lista;
+    }
+    
+    public Pedido encontrarPedido(int numero){
+        Iterator<Pedido> it=getListaPedidos().iterator();
+        Pedido unP = null;
+        boolean encontre=false;
+        while(it.hasNext()&&!encontre){
+            unP=it.next();
+            if(unP.getNumero()==numero){
+                encontre=true;
+            }
+        }
+        return unP;
+    }
+    public String[] arrayProductos(ArrayList<Producto> listaProductos){
+        String[] lista=new String[listaProductos.size()];
+        int cont=0;
+        Iterator<Producto> it=listaProductos.iterator();
+        while(it.hasNext()){
+            Producto unP=it.next();
+            lista[cont]=unP.toString();
+            cont++;
+        }
+        return lista;
+    }
 
 }
