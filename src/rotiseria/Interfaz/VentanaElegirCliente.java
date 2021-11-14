@@ -30,6 +30,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
     }
+    
     public void obtenerNombreCliente() throws IOException{
         String valor=(String)lstClientesECliente.getSelectedValue();
         this.sistema.guardarCliente(valor);

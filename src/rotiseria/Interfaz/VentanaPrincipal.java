@@ -28,11 +28,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class VentanaPrincipal extends javax.swing.JFrame {
 
     private Sistema sistema;
+
     public VentanaPrincipal(Sistema unSistema) {
-            initComponents();
-            this.sistema=unSistema;
+        initComponents();
+        this.sistema = unSistema;
     }
-    public void clienteElegido(Cliente unCliente){
+
+    public void clienteElegido(Cliente unCliente) {
         lblDatosCliente.setText(unCliente.toString());
     }
 
@@ -280,33 +282,33 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        VentanaCliente agregarCliente= new VentanaCliente(sistema);
+        VentanaCliente agregarCliente = new VentanaCliente(sistema);
         agregarCliente.setVisible(true);
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        VentanaCategoria ventCategoria=new VentanaCategoria();
+        VentanaCategoria ventCategoria = new VentanaCategoria();
         ventCategoria.setVisible(true);
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        VentanaProducto agregarProducto= new VentanaProducto();
+        VentanaProducto agregarProducto = new VentanaProducto();
         agregarProducto.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        VentanaPedido verPedido= new VentanaPedido();
+        VentanaPedido verPedido = new VentanaPedido();
         verPedido.setVisible(true);
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        FileInputStream cliente=null;
+        FileInputStream cliente = null;
+        VentanaElegirCliente elegirCliente = new VentanaElegirCliente(sistema);
+        elegirCliente.setVisible(true);
         try {
-            VentanaElegirCliente elegirCliente=new VentanaElegirCliente(sistema);
-            elegirCliente.setVisible(true);
             cliente = new FileInputStream("Cliente elegido");
-            ObjectInputStream in=new ObjectInputStream(cliente);
-            Cliente client=(Cliente)in.readObject();
+            ObjectInputStream in = new ObjectInputStream(cliente);
+            Cliente client = (Cliente) in.readObject();
             in.close();
             clienteElegido(client);
         } catch (FileNotFoundException ex) {
@@ -323,15 +325,15 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
-        showMessageDialog(null,"Pedido grabado con exito","Pedido grabado", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(null, "Pedido grabado con exito", "Pedido grabado", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnGrabarPedidoActionPerformed
 
     private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
-        int respuesta= JOptionPane.showConfirmDialog(null,"¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
         //0 es OK
         //2 es Cancel
-        if (respuesta==0){
-            
+        if (respuesta == 0) {
+
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
 
