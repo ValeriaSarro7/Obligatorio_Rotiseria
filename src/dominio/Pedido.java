@@ -11,8 +11,8 @@ public class Pedido {
     private int precioTotal;
     private String observaciones;
 
-    public Pedido(ArrayList<Producto> listaProdcutos, int numero, Cliente unCliente, int precioTotal, String observaciones) {
-        this.listaProdcutos = listaProdcutos;
+    public Pedido( int numero, Cliente unCliente, int precioTotal, String observaciones) {
+        this.listaProdcutos=new ArrayList<Producto>();
         this.numero = numero;
         this.unCliente = unCliente;
         this.precioTotal = precioTotal;
@@ -23,8 +23,8 @@ public class Pedido {
         return listaProdcutos;
     }
 
-    public void setListaProdcutos(ArrayList<Producto> listaProdcutos) {
-        this.listaProdcutos = listaProdcutos;
+    public void setListaProdcutos(Producto unProducto) {
+        this.getListaProdcutos().add(unProducto);
     }
 
     public int getNumero() {

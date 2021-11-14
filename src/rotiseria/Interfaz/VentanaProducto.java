@@ -5,6 +5,7 @@
  */
 package rotiseria.Interfaz;
 
+import dominio.Sistema;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -17,8 +18,11 @@ public class VentanaProducto extends javax.swing.JFrame {
     /**
      * Creates new form VentanaProductos
      */
-    public VentanaProducto() {
+    private Sistema sistema;
+    
+    public VentanaProducto(Sistema sistema) {
         initComponents();
+        this.sistema=sistema;
     }
 
     /**
