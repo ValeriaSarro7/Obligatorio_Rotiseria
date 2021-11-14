@@ -5,6 +5,8 @@
  */
 package rotiseria.Interfaz;
 
+import dominio.Cliente;
+import dominio.Sistema;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -14,11 +16,21 @@ import static javax.swing.JOptionPane.showMessageDialog;
  */
 public class VentanaCliente extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaCliente
-     */
-    public VentanaCliente() {
+    private Sistema sistema;
+    
+    public VentanaCliente(Sistema sistema) {
         initComponents();
+        this.sistema=sistema;
+        
+    }
+
+    private boolean datosCliente() {   
+        try{
+            txtTelefonoCliente.getText();
+        }catch(NumberFormatException e){
+            JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
+        }
+        return sistema.existeCliente(txtNombreCliente.getText(), txtDireccionCliente.getText(),txtTelefonoCliente.getText());
     }
 
     /**
@@ -54,7 +66,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         lblIngresoCliente.setBackground(new java.awt.Color(204, 204, 204));
         lblIngresoCliente.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
@@ -107,6 +119,11 @@ public class VentanaCliente extends javax.swing.JFrame {
         txtTelefonoCliente.setForeground(new java.awt.Color(0, 0, 0));
         txtTelefonoCliente.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
         txtTelefonoCliente.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtTelefonoCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoClienteActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtTelefonoCliente);
 
         jPanel4.setOpaque(false);
@@ -199,21 +216,35 @@ public class VentanaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreClienteActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtNombreClienteActionPerformed
 
     private void txtDireccionClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionClienteActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtDireccionClienteActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        showMessageDialog(null,"Cliente agregado con exito","Agregado", JOptionPane.PLAIN_MESSAGE);
-        this.dispose();
+        if(!this.datosCliente()){
+            this.sistema.setListaClientes(txtNombreCliente.getText(), new Cliente (txtNombreCliente.getText(), txtDireccionCliente.getText(),txtTelefonoCliente.getText()));
+            showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
+            this.dispose();
+        }else{
+            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
+        }
+        
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     private void btnCancelarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarClienteActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarClienteActionPerformed
+
+    private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
+        try{
+            txtTelefonoCliente.getText();
+        }catch(NumberFormatException e){
+            JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
+        }
+    }//GEN-LAST:event_txtTelefonoClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarCliente;

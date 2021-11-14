@@ -1,11 +1,16 @@
 
 package rotiseria.Interfaz;
 
-public class Rotiseria {
+import dominio.Sistema;
+import java.io.*;
+
+public class Rotiseria  {
 
     public static void main(String[] args) {
-        VentanaPrincipal ventanaPrincipal= new VentanaPrincipal();
+        Sistema sistema= new Sistema();
+        VentanaPrincipal ventanaPrincipal= new VentanaPrincipal(sistema);
         ventanaPrincipal.setVisible(true);
+        
     }
     
 }
