@@ -50,7 +50,7 @@ public class VentanaPedido extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblDetallePedido = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lblNumero = new javax.swing.JLabel();
         lblNumeroPedido = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
@@ -93,11 +93,11 @@ public class VentanaPedido extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(lblDetallePedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(145, 145, 145)
                 .addComponent(lblNumeroPedido)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,7 +111,7 @@ public class VentanaPedido extends javax.swing.JFrame {
                         .addGap(0, 7, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblNumero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -286,12 +286,16 @@ public class VentanaPedido extends javax.swing.JFrame {
         String numero= eleccion.split("\n")[0];
         Pedido pedidoElegido= this.sistema.encontrarPedido(Integer.parseInt(numero));
         listar(this.sistema.arrayProductos(pedidoElegido.getListaProdcutos()), 2);
+        lblNumero.setText(eleccion);
+        lblClientePedidoSeleccionado.setText(pedidoElegido.getUnCliente().getNombre().toString());
+        lblPrecioPedidoSeleccionado.setText("$"+Integer.toString(pedidoElegido.getPrecioTotal()));
+        jArDatosPedidos.setText("Observaciones: " + pedidoElegido.getObservaciones());
+        
         
     }//GEN-LAST:event_lstPedidosPedidoValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea jArDatosPedidos;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -305,6 +309,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel lblClientePedido;
     private javax.swing.JLabel lblClientePedidoSeleccionado;
     private javax.swing.JLabel lblDetallePedido;
+    private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblNumeroPedido;
     private javax.swing.JLabel lblPrecio;
     private javax.swing.JLabel lblPrecioPedidoSeleccionado;
