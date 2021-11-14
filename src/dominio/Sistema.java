@@ -46,24 +46,24 @@ public class Sistema implements Serializable {
         return listaCategorias;
     }
 
-    public void setListaCategorias(ArrayList<Categoria> listaCategorias) {
-        this.listaCategorias = listaCategorias;
+    public void setListaCategorias(Categoria categoria) {
+        this.getListaCategorias().add(categoria);
     }
 
     public ArrayList<Pedido> getListaPedidos() {
         return listaPedidos;
     }
 
-    public void setListaPedidos(ArrayList<Pedido> listaPedidos) {
-        this.listaPedidos = listaPedidos;
+    public void setListaPedidos(Pedido unPedido) {
+        this.getListaPedidos().add(unPedido);
     }
 
     public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(ArrayList<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
+    public void setListaProductos(Producto unProducto) {
+        this.getListaProductos().add(unProducto);
     }
 
     public boolean existeCliente(String nombre, String direccion, String numero) {
@@ -81,7 +81,7 @@ public class Sistema implements Serializable {
     public boolean existeCategoria(String nombreCategoria){
         boolean existe=false;
         Iterator<Categoria>it=this.getListaCategorias().iterator();
-        while(it.hasNext()&&!existe){
+        while(it.hasNext()){
             Categoria cat=it.next();
             if(cat.getNombre().equalsIgnoreCase(nombreCategoria)){
                 existe=true;
@@ -119,6 +119,5 @@ public class Sistema implements Serializable {
         out.writeObject(unCliente);
         out.close();
     }
-    
 
 }
