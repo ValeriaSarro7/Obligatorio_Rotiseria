@@ -287,7 +287,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        VentanaCategoria ventCategoria = new VentanaCategoria();
+        VentanaCategoria ventCategoria = new VentanaCategoria(sistema);
         ventCategoria.setVisible(true);
     }//GEN-LAST:event_btnCategoriasActionPerformed
 

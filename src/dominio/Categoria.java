@@ -4,16 +4,22 @@ package dominio;
 import java.util.*;
 
 public class Categoria {
-    private String descripcion;
+    private String nombre;
     private int prioridad;
     private String detalle;
 
-    public String getDescripcion() {
-        return descripcion;
+    public Categoria(String nombre, int prioridad, String detalle) {
+        this.nombre = nombre;
+        this.prioridad = prioridad;
+        this.detalle = detalle;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String descripcion) {
+        this.nombre = descripcion;
     }
 
     public int getPrioridad() {

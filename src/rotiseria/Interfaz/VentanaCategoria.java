@@ -5,6 +5,8 @@
  */
 package rotiseria.Interfaz;
 
+import dominio.Categoria;
+import dominio.Sistema;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -17,9 +19,21 @@ public class VentanaCategoria extends javax.swing.JFrame {
     /**
      * Creates new form VentanaProducto
      */
-    public VentanaCategoria() {
+    private Sistema sistema;
+    
+    public VentanaCategoria(Sistema unSistema) {
         initComponents();
+        this.sistema= unSistema;
     }
+    
+    public boolean categoriaValida(){
+        boolean esValido=true;
+        esValido = !sistema.existeCategoria(txtNombreCategoria.getText());
+        if (!esValido) {
+            showMessageDialog(null, "Ya existe la categoria!\n Ingrese otro nombre o cancele la operacion", "Categoria existe", JOptionPane.PLAIN_MESSAGE);
+        }
+        return esValido;
+   }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,7 +50,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         lblNombreProducto = new javax.swing.JLabel();
-        txtNombreProducto = new javax.swing.JTextField();
+        txtNombreCategoria = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblPrioridadProducto = new javax.swing.JLabel();
         cbxPrioridadProducto = new javax.swing.JComboBox<>();
@@ -56,7 +70,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         lblIngreseProducto.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         lblIngreseProducto.setForeground(new java.awt.Color(0, 0, 0));
@@ -66,25 +80,25 @@ public class VentanaCategoria extends javax.swing.JFrame {
         jPanel3.setOpaque(false);
 
         jPanel5.setOpaque(false);
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         lblNombreProducto.setBackground(new java.awt.Color(204, 204, 204));
         lblNombreProducto.setForeground(new java.awt.Color(0, 0, 0));
         lblNombreProducto.setText("Nombre");
         jPanel5.add(lblNombreProducto);
 
-        txtNombreProducto.setBackground(new java.awt.Color(204, 255, 204));
-        txtNombreProducto.setForeground(new java.awt.Color(0, 0, 0));
-        txtNombreProducto.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
-        txtNombreProducto.addActionListener(new java.awt.event.ActionListener() {
+        txtNombreCategoria.setBackground(new java.awt.Color(204, 255, 204));
+        txtNombreCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        txtNombreCategoria.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 2, 2, 2, new java.awt.Color(204, 204, 204)));
+        txtNombreCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreProductoActionPerformed(evt);
+                txtNombreCategoriaActionPerformed(evt);
             }
         });
-        jPanel5.add(txtNombreProducto);
+        jPanel5.add(txtNombreCategoria);
 
         jPanel4.setOpaque(false);
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         lblPrioridadProducto.setBackground(new java.awt.Color(204, 204, 204));
         lblPrioridadProducto.setForeground(new java.awt.Color(0, 0, 0));
@@ -98,7 +112,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         jPanel4.add(cbxPrioridadProducto);
 
         jPanel8.setOpaque(false);
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         lblDetallesProducto.setBackground(new java.awt.Color(204, 204, 204));
         lblDetallesProducto.setForeground(new java.awt.Color(0, 0, 0));
@@ -106,7 +120,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         jPanel8.add(lblDetallesProducto);
 
         jPanel9.setOpaque(false);
-        jPanel9.setLayout(new java.awt.GridLayout());
+        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
 
         txtDetallesProducto.setBackground(new java.awt.Color(204, 255, 204));
         txtDetallesProducto.setColumns(20);
@@ -227,13 +241,18 @@ public class VentanaCategoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        showMessageDialog(null,"Categoria agregada con éxito","Agregado", JOptionPane.PLAIN_MESSAGE);
-        this.dispose();
+        if(categoriaValida()){
+            int prioridad= (int)cbxPrioridadProducto.getSelectedItem();
+            Categoria cat = new Categoria(txtNombreCategoria.getText(), prioridad , txtDetallesProducto.getText());
+            showMessageDialog(null,"Categoria agregada con éxito","Agregado", JOptionPane.PLAIN_MESSAGE);
+            this.dispose();
+        }
+        
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
-    private void txtNombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreProductoActionPerformed
+    private void txtNombreCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreProductoActionPerformed
+    }//GEN-LAST:event_txtNombreCategoriaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarProducto;
@@ -253,6 +272,6 @@ public class VentanaCategoria extends javax.swing.JFrame {
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrioridadProducto;
     private javax.swing.JTextArea txtDetallesProducto;
-    private javax.swing.JTextField txtNombreProducto;
+    private javax.swing.JTextField txtNombreCategoria;
     // End of variables declaration//GEN-END:variables
 }

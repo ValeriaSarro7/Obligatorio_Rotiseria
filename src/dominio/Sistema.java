@@ -76,9 +76,17 @@ public class Sistema implements Serializable {
                 existe = true;
             }
         }
-        /* if (!existe) {
-            new Cliente(nombre, direccion, numero);
-        }*/
+        return existe;
+    }
+    public boolean existeCategoria(String nombreCategoria){
+        boolean existe=false;
+        Iterator<Categoria>it=this.getListaCategorias().iterator();
+        while(it.hasNext()&&!existe){
+            Categoria cat=it.next();
+            if(cat.getNombre().equalsIgnoreCase(nombreCategoria)){
+                existe=true;
+            }
+        }
         return existe;
     }
 
@@ -111,5 +119,6 @@ public class Sistema implements Serializable {
         out.writeObject(unCliente);
         out.close();
     }
+    
 
 }
