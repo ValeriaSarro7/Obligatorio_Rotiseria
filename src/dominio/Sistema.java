@@ -120,17 +120,6 @@ public class Sistema implements Serializable {
         out.writeObject(unCliente);
         out.close();
     }
-    public String[] arrayPedidos(ArrayList<Pedido> listaPedidos){
-        String[] lista=new String[listaPedidos.size()];
-        int cont=0;
-        Iterator<Pedido> it=listaPedidos.iterator();
-        while(it.hasNext()){
-            Pedido unP=it.next();
-            lista[cont]=unP.toString();
-            cont++;
-        }
-        return lista;
-    }
     
     public Pedido encontrarPedido(int numero){
         Iterator<Pedido> it=getListaPedidos().iterator();
@@ -144,6 +133,19 @@ public class Sistema implements Serializable {
         }
         return unP;
     }
+    
+    public String[] arrayPedidos(ArrayList<Pedido> listaPedidos){
+        String[] lista=new String[listaPedidos.size()];
+        int cont=0;
+        Iterator<Pedido> it=listaPedidos.iterator();
+        while(it.hasNext()){
+            Pedido unP=it.next();
+            lista[cont]=unP.toString();
+            cont++;
+        }
+        return lista;
+    }
+    
     public String[] arrayProductos(ArrayList<Producto> listaProductos){
         String[] lista=new String[listaProductos.size()];
         int cont=0;

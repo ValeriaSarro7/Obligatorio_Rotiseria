@@ -7,19 +7,17 @@ package rotiseria.Interfaz;
 
 import dominio.Cliente;
 import dominio.Sistema;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import utils.OrdenAlfabetico;
+import utils.OrdenPrioridad;
 
 /**
  *
@@ -32,11 +30,32 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        this.CerrarVentana();
+    }
+    public void CerrarVentana(){
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showMessageDialog(null, "Datos guardados exitosamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
+        });
     }
 
     public void clienteElegido(Cliente unCliente) {
         lblDatosCliente.setText(unCliente.toString());
     }
+    public void cargarCombo(){
+        if(rbtnPrioridad.isSelected()){
+            Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
+        }else{
+            Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
+        }
+        for(int i=0; i<=this.sistema.getListaCategorias().size(); i++){
+            cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
+        }
+    }
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -69,7 +88,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnEliminarItem = new javax.swing.JButton();
         btnGrabarPedido = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rotisería");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -126,6 +145,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnAlfabetico.setBorderPainted(true);
         rbtnAlfabetico.setFocusCycleRoot(true);
         rbtnAlfabetico.setPreferredSize(new java.awt.Dimension(174, 19));
+        rbtnAlfabetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAlfabeticoActionPerformed(evt);
+            }
+        });
         jPanel2.add(rbtnAlfabetico);
 
         rbtnPrioridad.setBackground(new java.awt.Color(204, 204, 204));
@@ -270,11 +294,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfdObservacionesActionPerformed
 
     private void rbtnPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPrioridadActionPerformed
-        // TODO add your handling code here:
+        this.cargarCombo();
     }//GEN-LAST:event_rbtnPrioridadActionPerformed
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -341,6 +365,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
+
+    private void rbtnAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAlfabeticoActionPerformed
+        this.cargarCombo();
+    }//GEN-LAST:event_rbtnAlfabeticoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
