@@ -1,8 +1,11 @@
 package dominio;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.*;
 ;
 import java.util.*;
+
 
 public class Sistema implements Serializable {
 
@@ -11,13 +14,21 @@ public class Sistema implements Serializable {
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
+    private PropertyChangeSupport pCS1;
+
 
     public Sistema() {
         listaClientes = new HashMap<String, Cliente>();
         listaCategorias = new ArrayList<Categoria>();
         listaPedidos = new ArrayList<Pedido>();
         listaProductos = new ArrayList<Producto>();
+        this.pCS1=new PropertyChangeSupport(this);
+
     }
+    
+    public void agregarListenerpCS1(PropertyChangeListener listener){
+       pCS1.addPropertyChangeListener(listener);
+   } 
 
     public HashMap<String, Cliente> getListaClientes() {
         return listaClientes;
@@ -38,6 +49,12 @@ public class Sistema implements Serializable {
 
     public void setListaCategorias(Categoria categoria) {
         this.getListaCategorias().add(categoria);
+        
+        for(Categoria unaCategoria:this.getListaCategorias()){
+            System.out.println(unaCategoria);
+        }
+        
+        pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
 
     public ArrayList<Pedido> getListaPedidos() {

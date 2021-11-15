@@ -9,6 +9,8 @@ import dominio.Cliente;
 import dominio.Sistema;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -23,13 +25,14 @@ import utils.OrdenPrioridad;
  *
  * @author Usuario
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema sistema;
 
     public VentanaPrincipal(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        this.sistema.agregarListenerpCS1(this);
         this.cerrarVentana();
     }
     public void cerrarVentana(){
@@ -46,12 +49,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         lblDatosCliente.setText(unCliente.toString());
     }
     public void cargarCombo(){
+        cmbCategoria.removeAllItems();
         if(rbtnPrioridad.isSelected()){
             Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
         }else{
             Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
         }
-        for(int i=0; i<=this.sistema.getListaCategorias().size(); i++){
+        for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
             cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
         }
     }
@@ -398,4 +402,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnPrioridad;
     private javax.swing.JTextField tfdObservaciones;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        cargarCombo();
+    }
 }
