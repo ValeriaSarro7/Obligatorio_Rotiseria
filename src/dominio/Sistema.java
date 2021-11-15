@@ -155,6 +155,17 @@ public class Sistema implements Serializable {
         }
         return lista;
     }
+    public String[] arrayCategorias(){
+        String[] lista=new String[getListaCategorias().size()];
+        int cont=0;
+        Iterator<Categoria> it=getListaCategorias().iterator();
+        while(it.hasNext()){
+            Categoria unaC=it.next();
+            lista[cont]=unaC.toString();
+            cont++;
+        }
+        return lista;
+    }
     public void agregarCategoriasProducto(List <String> categorias, Producto unProducto){
         for(int i=0; i<categorias.size(); i++){
             Iterator<Categoria> it=getListaCategorias().iterator();

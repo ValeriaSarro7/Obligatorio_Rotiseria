@@ -297,8 +297,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        VentanaPedido verPedido = new VentanaPedido();
-        verPedido.setVisible(true);
+        if(this.sistema.getListaPedidos().isEmpty()){
+            showMessageDialog(null, "Primero debe ingresar un pedido", "Ingrese Pedido", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            VentanaPedido verPedido = new VentanaPedido(sistema);
+            verPedido.setVisible(true);
+        }
+        
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed

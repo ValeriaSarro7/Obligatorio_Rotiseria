@@ -24,11 +24,16 @@ public class VentanaProducto extends javax.swing.JFrame {
     public VentanaProducto(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
+        listarCategorias();
     }
     public boolean productoValido(){
         boolean esValido=true;
         esValido = !(this.sistema.existeProducto(txtNombreProducto.getText()));
         return esValido;
+    }
+    
+    public void listarCategorias(){
+        lstCategoriasProducto.setListData(this.sistema.arrayCategorias());
     }
     
     @SuppressWarnings("unchecked")
