@@ -30,16 +30,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     public VentanaPrincipal(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
-        this.CerrarVentana();
+        this.cerrarVentana();
     }
-    public void CerrarVentana(){
-        addWindowListener(new WindowAdapter() {
+    public void cerrarVentana(){
+        addWindowListener (new WindowAdapter (){
             @Override
-            public void windowClosing(WindowEvent e) {
+            public void windowClosing (WindowEvent  e){
                 showMessageDialog(null, "Datos guardados exitosamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
-                System.exit(0);
+                System.exit (0);
             }
-        });
+         });
     }
 
     public void clienteElegido(Cliente unCliente) {
