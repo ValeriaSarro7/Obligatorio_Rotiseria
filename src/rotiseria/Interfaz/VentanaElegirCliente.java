@@ -76,6 +76,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         lstClientesECliente.setBackground(new java.awt.Color(204, 255, 204));
+        lstClientesECliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstClientesECliente.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstClientesEClienteValueChanged(evt);

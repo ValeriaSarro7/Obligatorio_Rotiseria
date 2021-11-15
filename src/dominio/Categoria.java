@@ -37,4 +37,8 @@ public class Categoria {
     public void setDetalle(String detalle) {
         this.detalle = detalle;
     }
+    @Override
+    public String toString(){
+        return this.getNombre();
+    }
 }

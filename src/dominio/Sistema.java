@@ -3,16 +3,6 @@ package dominio;
 import java.io.*;
 ;
 import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-import java.util.*;
-
-
 
 public class Sistema implements Serializable {
 
@@ -89,6 +79,17 @@ public class Sistema implements Serializable {
         }
         return existe;
     }
+    public boolean existeProducto(String nombreProd){
+        boolean existe=false;
+        Iterator<Producto>it=this.getListaProductos().iterator();
+        while(it.hasNext()){
+            Producto prod=it.next();
+            if(prod.getNombre().equalsIgnoreCase(nombreProd)){
+                existe=true;
+            }
+        }
+        return existe;
+    }
 
     public String[] obtenerClaveClientes() {
         return (this.getListaClientes().keySet().toArray(new String[this.getListaClientes().size()]));
@@ -153,6 +154,21 @@ public class Sistema implements Serializable {
             cont++;
         }
         return lista;
+    }
+    public void agregarCategoriasProducto(List <String> categorias, Producto unProducto){
+        for(int i=0; i<categorias.size(); i++){
+            Iterator<Categoria> it=getListaCategorias().iterator();
+            Categoria unaC = null;
+            boolean encontre=false;
+            while(it.hasNext()&&!encontre){
+                unaC=it.next();
+                if(unaC.getNombre().equalsIgnoreCase(categorias.get(i))){
+                    encontre=true;
+                    unProducto.setListaCategorias(unaC);
+                }
+                    
+            }
+        }
     }
 
 }

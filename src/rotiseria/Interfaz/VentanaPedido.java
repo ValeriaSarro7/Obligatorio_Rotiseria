@@ -125,6 +125,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         lstPedidosPedido.setBackground(new java.awt.Color(204, 255, 204));
         lstPedidosPedido.setForeground(new java.awt.Color(0, 0, 0));
+        lstPedidosPedido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstPedidosPedido.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstPedidosPedidoValueChanged(evt);
