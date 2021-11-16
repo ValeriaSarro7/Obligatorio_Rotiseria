@@ -17,6 +17,7 @@ public class Sistema implements Serializable {
     private Cliente clienteSeleccionado;
     private PropertyChangeSupport pCS1;
     private PropertyChangeSupport pCS2;
+    private PropertyChangeSupport pCS3;
 
 
     public Sistema() {
@@ -24,8 +25,10 @@ public class Sistema implements Serializable {
         listaCategorias = new ArrayList<Categoria>();
         listaPedidos = new ArrayList<Pedido>();
         listaProductos = new ArrayList<Producto>();
+        clienteSeleccionado = new Cliente("","","");
         this.pCS1=new PropertyChangeSupport(this);
         this.pCS2=new PropertyChangeSupport(this);
+        this.pCS3=new PropertyChangeSupport(this);
         
 
     }
@@ -44,6 +47,10 @@ public class Sistema implements Serializable {
     
     public void agregarListenerpCS2(PropertyChangeListener listener){
        pCS2.addPropertyChangeListener(listener);
+    }
+    
+    public void agregarListenerpCS3(PropertyChangeListener listener){
+       pCS3.addPropertyChangeListener(listener);
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -73,6 +80,15 @@ public class Sistema implements Serializable {
         this.getListaCategorias().add(categoria);   
         pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
+    public Categoria darCategoria(String nombreCategoria){
+        Categoria categoria=null;
+        for(Categoria unaCategoria: this.getListaCategorias()){
+            if(unaCategoria.getNombre().equalsIgnoreCase(nombreCategoria)){
+                categoria=unaCategoria;
+            }
+        }
+        return categoria;
+    }
 
     public ArrayList<Pedido> getListaPedidos() {
         return listaPedidos;
@@ -88,6 +104,7 @@ public class Sistema implements Serializable {
 
     public void setListaProductos(Producto unProducto) {
         this.getListaProductos().add(unProducto);
+        pCS3.firePropertyChange("valor", "previo", "nuevo");
     }
 
     public boolean existeCliente(String nombre) {
@@ -135,8 +152,8 @@ public class Sistema implements Serializable {
     public String[] filtrarLista(String filtro) {
         String lis = "";
         for (int i = 0; i < this.getListaClientes().size(); i++) {
-            if (this.getListaClientes().get(i).toString().toUpperCase().contains(filtro.toUpperCase())) {
-                lis += this.getListaClientes().get(i).toString() + ";";
+            if (this.getListaClientes().get(i).getNombre().toUpperCase().contains(filtro.toUpperCase())) {
+                lis += this.getListaClientes().get(i).getNombre() + ";";
             }
         }
         return lis.split(";");

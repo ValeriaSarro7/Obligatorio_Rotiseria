@@ -1,12 +1,18 @@
 package rotiseria.Interfaz;
 
+import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Sistema;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Collections;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import utils.OrdenAlfabetico;
@@ -25,6 +31,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         this.sistema = unSistema;
         this.sistema.agregarListenerpCS1(this);
         this.sistema.agregarListenerpCS2(this);
+        this.sistema.agregarListenerpCS3(this);
         this.cerrarVentana();
     }
     public void cerrarVentana(){
@@ -47,13 +54,42 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }else{
             Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
         }
-        for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
-            cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
+        if(this.sistema.getListaCategorias().size()!=0){
+            for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
+                cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
+            }
         }
+        
     }
     public void setCliente(){
-        lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
+        lblDatosCliente.setText("");
+        if(!this.sistema.getClienteSeleccionado().getNombre().equals("")){
+            lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
+        }
     }
+    public void agregarBotones(){
+        String categoria=cmbCategoria.getSelectedItem().toString();
+        this.sistema.darCategoria(categoria);
+        for(int i=0; i<this.sistema.getListaProductos().size(); i++){
+            for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias())
+            if(unaCategoria.equals(categoria)){
+                JButton nuevo = new JButton(" ");
+                nuevo.setMargin(new Insets(-5, -5, -5, -5));
+                nuevo.setBackground(Color.BLACK);
+                nuevo.setForeground(Color.WHITE);
+                nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
+                nuevo.addActionListener(new ProductoListener());
+                pnlProductos.add(nuevo);
+            }
+        }
+    }
+    private class ProductoListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton cual = ((JButton) e.getSource());
+            System.out.print(cual.toString());
+        }
+    }    
     
 
     @SuppressWarnings("unchecked")
@@ -80,7 +116,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         btnReiniciarPedido = new javax.swing.JButton();
         lblCostoTotal = new javax.swing.JLabel();
         pnlProductos = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstProductosDePedido = new javax.swing.JList<>();
@@ -237,20 +272,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         pnlProductos.setBackground(new java.awt.Color(204, 255, 204));
         pnlProductos.setForeground(new java.awt.Color(0, 0, 0));
         pnlProductos.setLayout(new java.awt.GridLayout(3, 0));
-
-        jButton8.setBackground(new java.awt.Color(0, 0, 0));
-        jButton8.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Empanada");
-        jButton8.setToolTipText("");
-        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        pnlProductos.add(jButton8);
-
         jPanel1.add(pnlProductos);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
@@ -300,10 +321,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         VentanaCliente agregarCliente = new VentanaCliente(sistema);
         agregarCliente.setVisible(true);
@@ -326,7 +343,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             VentanaPedido verPedido = new VentanaPedido(sistema);
             verPedido.setVisible(true);
         }
-        
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
@@ -363,7 +379,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JButton elegirCliente;
-    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -383,8 +398,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        cargarCombo();
-        setCliente();
+        this.cargarCombo();
+        this.setCliente();
+        this.agregarBotones();
         
     }
 }
