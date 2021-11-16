@@ -22,27 +22,15 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;
-    private PropertyChangeSupport pCS2;
     
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
-        this.pCS2=new PropertyChangeSupport(this);
         setLista(sistema.obtenerNombresClientes());
-    }
-    
-    public void agregarListenerpCS2(PropertyChangeListener listener){
-       pCS2.addPropertyChangeListener(listener);
     } 
     
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
-    }
-    
-    public void obtenerNombreCliente(){
-        String valor=(String)lstClientesECliente.getSelectedValue();
-        this.sistema.darCliente(valor);
-        pCS2.firePropertyChange("nombre", "previo", valor );
     }
 
     @SuppressWarnings("unchecked")
@@ -233,7 +221,8 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
-        obtenerNombreCliente();
+        String valor=(String)lstClientesECliente.getSelectedValue();
+        this.sistema.setClienteSeleccionado(this.sistema.darCliente(valor));
         showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed

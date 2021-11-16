@@ -14,7 +14,9 @@ public class Sistema implements Serializable {
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
+    private Cliente clienteSeleccionado;
     private PropertyChangeSupport pCS1;
+    private PropertyChangeSupport pCS2;
 
 
     public Sistema() {
@@ -23,12 +25,25 @@ public class Sistema implements Serializable {
         listaPedidos = new ArrayList<Pedido>();
         listaProductos = new ArrayList<Producto>();
         this.pCS1=new PropertyChangeSupport(this);
+        this.pCS2=new PropertyChangeSupport(this);
         
 
+    }
+    public Cliente getClienteSeleccionado(){
+        return this.clienteSeleccionado;
+    }
+    
+    public void setClienteSeleccionado(Cliente unCliente){
+        this.clienteSeleccionado=unCliente;
+        pCS2.firePropertyChange("nombre", "previo", "nuevo" );
     }
     
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
+    }
+    
+    public void agregarListenerpCS2(PropertyChangeListener listener){
+       pCS2.addPropertyChangeListener(listener);
     }
 
     public ArrayList<Cliente> getListaClientes() {

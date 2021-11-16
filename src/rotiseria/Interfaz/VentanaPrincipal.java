@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rotiseria.Interfaz;
 
 import dominio.Cliente;
@@ -11,10 +6,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.Collections;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -33,6 +24,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         initComponents();
         this.sistema = unSistema;
         this.sistema.agregarListenerpCS1(this);
+        this.sistema.agregarListenerpCS2(this);
         this.cerrarVentana();
     }
     public void cerrarVentana(){
@@ -60,7 +52,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }
     public void setCliente(){
-        
+        lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
     }
     
 
@@ -341,7 +333,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         //FileInputStream cliente = null;
         VentanaElegirCliente elegirCliente = new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
-        elegirCliente.agregarListenerpCS2(this);
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
