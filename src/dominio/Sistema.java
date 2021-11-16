@@ -16,8 +16,6 @@ public class Sistema implements Serializable {
     private ArrayList<Producto> listaProductos;
     private Cliente clienteSeleccionado;
     private PropertyChangeSupport pCS1;
-    private PropertyChangeSupport pCS2;
-    private PropertyChangeSupport pCS3;
 
 
     public Sistema() {
@@ -27,10 +25,6 @@ public class Sistema implements Serializable {
         listaProductos = new ArrayList<Producto>();
         clienteSeleccionado = new Cliente("","","");
         this.pCS1=new PropertyChangeSupport(this);
-        this.pCS2=new PropertyChangeSupport(this);
-        this.pCS3=new PropertyChangeSupport(this);
-        
-
     }
     public Cliente getClienteSeleccionado(){
         return this.clienteSeleccionado;
@@ -38,19 +32,11 @@ public class Sistema implements Serializable {
     
     public void setClienteSeleccionado(Cliente unCliente){
         this.clienteSeleccionado=unCliente;
-        pCS2.firePropertyChange("nombre", "previo", "nuevo" );
+        pCS1.firePropertyChange("nombre", "previo", "nuevo" );
     }
     
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
-    }
-    
-    public void agregarListenerpCS2(PropertyChangeListener listener){
-       pCS2.addPropertyChangeListener(listener);
-    }
-    
-    public void agregarListenerpCS3(PropertyChangeListener listener){
-       pCS3.addPropertyChangeListener(listener);
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -104,7 +90,7 @@ public class Sistema implements Serializable {
 
     public void setListaProductos(Producto unProducto) {
         this.getListaProductos().add(unProducto);
-        pCS3.firePropertyChange("valor", "previo", "nuevo");
+        pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
 
     public boolean existeCliente(String nombre) {

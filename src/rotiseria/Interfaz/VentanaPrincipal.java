@@ -30,8 +30,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         initComponents();
         this.sistema = unSistema;
         this.sistema.agregarListenerpCS1(this);
-        this.sistema.agregarListenerpCS2(this);
-        this.sistema.agregarListenerpCS3(this);
         this.cerrarVentana();
     }
     public void cerrarVentana(){
@@ -48,18 +46,17 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         lblDatosCliente.setText(unCliente.toString());
     }
     public void cargarCombo(){
-        cmbCategoria.removeAllItems();
-        if(rbtnPrioridad.isSelected()){
-            Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
-        }else{
-            Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
-        }
         if(this.sistema.getListaCategorias().size()!=0){
+            cmbCategoria.removeAllItems();
+            if(rbtnPrioridad.isSelected()){
+                Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
+            }else{
+                Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
+            }
             for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
                 cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
             }
         }
-        
     }
     public void setCliente(){
         lblDatosCliente.setText("");
@@ -68,21 +65,25 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }
     public void agregarBotones(){
-        String categoria=cmbCategoria.getSelectedItem().toString();
-        this.sistema.darCategoria(categoria);
-        for(int i=0; i<this.sistema.getListaProductos().size(); i++){
-            for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias())
-            if(unaCategoria.equals(categoria)){
-                JButton nuevo = new JButton(" ");
-                nuevo.setMargin(new Insets(-5, -5, -5, -5));
-                nuevo.setBackground(Color.BLACK);
-                nuevo.setForeground(Color.WHITE);
-                nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
-                nuevo.addActionListener(new ProductoListener());
-                pnlProductos.add(nuevo);
+        if(this.sistema.getListaProductos().size()!=0){
+            pnlProductos.removeAll();
+            String categoria = cmbCategoria.getSelectedItem().toString();
+            for(int i=0; i<this.sistema.getListaProductos().size(); i++){
+                for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias()){
+                    if(unaCategoria.getNombre().equalsIgnoreCase(categoria)){
+                        JButton nuevo = new JButton(" ");
+                        nuevo.setMargin(new Insets(-5, -5, -5, -5));
+                        nuevo.setBackground(Color.BLACK);
+                        nuevo.setForeground(Color.WHITE);
+                        nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
+                        nuevo.addActionListener(new ProductoListener());
+                        pnlProductos.add(nuevo);
+                    }
+                }
             }
         }
     }
+    
     private class ProductoListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -346,7 +347,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        //FileInputStream cliente = null;
         VentanaElegirCliente elegirCliente = new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
     }//GEN-LAST:event_elegirClienteActionPerformed
@@ -399,8 +399,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.cargarCombo();
-        this.setCliente();
         this.agregarBotones();
-        
+        this.setCliente();
     }
 }
