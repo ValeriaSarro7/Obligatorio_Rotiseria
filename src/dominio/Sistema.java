@@ -10,7 +10,7 @@ import java.util.*;
 public class Sistema implements Serializable {
 
     // por que lista cliente tiene que ser un hashmap? 
-    private HashMap<String, Cliente> listaClientes;
+    private ArrayList<Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
@@ -18,29 +18,36 @@ public class Sistema implements Serializable {
 
 
     public Sistema() {
-        listaClientes = new HashMap<String, Cliente>();
+        listaClientes = new ArrayList<Cliente>();
         listaCategorias = new ArrayList<Categoria>();
         listaPedidos = new ArrayList<Pedido>();
         listaProductos = new ArrayList<Producto>();
         this.pCS1=new PropertyChangeSupport(this);
+        
 
     }
     
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
-   } 
+    }
 
-    public HashMap<String, Cliente> getListaClientes() {
+    public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
 
     // no es redundante pasar el nombre como string y como atributo de cliente? 
-    public void setListaClientes(String nombre, Cliente cliente) {
-        this.getListaClientes().put(nombre, cliente);
+    public void setListaClientes(Cliente cliente) {
+        this.getListaClientes().add(cliente);
     }
 
     public Cliente darCliente(String nombre) {
-        return this.getListaClientes().get(nombre);
+        Cliente cliente=null;
+        for(Cliente unCliente:this.getListaClientes()){
+            if(unCliente.getNombre().equalsIgnoreCase(nombre)){
+                cliente=unCliente;
+            }
+        }
+        return cliente;
     }
 
     public ArrayList<Categoria> getListaCategorias() {
@@ -48,12 +55,7 @@ public class Sistema implements Serializable {
     }
 
     public void setListaCategorias(Categoria categoria) {
-        this.getListaCategorias().add(categoria);
-        
-        for(Categoria unaCategoria:this.getListaCategorias()){
-            System.out.println(unaCategoria);
-        }
-        
+        this.getListaCategorias().add(categoria);   
         pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
 
@@ -73,14 +75,11 @@ public class Sistema implements Serializable {
         this.getListaProductos().add(unProducto);
     }
 
-    public boolean existeCliente(String nombre, String direccion, String numero) {
-        boolean existe = false;
-        String clave = "";
-        Iterator<String> it = this.getListaClientes().keySet().iterator();
-        while (it.hasNext() && !existe) {
-            clave = (String) it.next();
-            if (this.darCliente(clave).getNombre().toUpperCase().equals(nombre.toUpperCase())) {
-                existe = true;
+    public boolean existeCliente(String nombre) {
+        boolean existe=false;
+        for(Cliente unCliente:this.getListaClientes()){
+            if(unCliente.getNombre().equalsIgnoreCase(nombre)){
+                existe=true;
             }
         }
         return existe;
@@ -107,35 +106,25 @@ public class Sistema implements Serializable {
         }
         return existe;
     }
-
-    public String[] obtenerClaveClientes() {
-        return (this.getListaClientes().keySet().toArray(new String[this.getListaClientes().size()]));
-    }
-
-    public Cliente[] obtenerClientes() {
-        return (this.getListaClientes().values().toArray(new Cliente[this.getListaClientes().size()]));
-    }
-
-    public Cliente encontrarCliente(String unNombre) {
-        return this.getListaClientes().get(unNombre);
+    
+    public String[] obtenerNombresClientes(){
+        String[] array= new String[this.getListaClientes().size()];
+        int cont=0;
+        for(Cliente unCliente: this.getListaClientes()){
+            array[cont]=unCliente.getNombre();
+            cont++;
+        }
+        return array;
     }
 
     public String[] filtrarLista(String filtro) {
         String lis = "";
-        for (int i = 0; i < obtenerClaveClientes().length; i++) {
-            if (obtenerClaveClientes()[i].toUpperCase().contains(filtro.toLowerCase())) {
-                lis += obtenerClaveClientes()[i] + ";";
+        for (int i = 0; i < this.getListaClientes().size(); i++) {
+            if (this.getListaClientes().get(i).toString().toUpperCase().contains(filtro.toUpperCase())) {
+                lis += this.getListaClientes().get(i).toString() + ";";
             }
         }
         return lis.split(";");
-    }
-
-    public void guardarCliente(String clave) throws FileNotFoundException, IOException {
-        Cliente unCliente = encontrarCliente(clave);
-        FileOutputStream cliente = new FileOutputStream("Cliente elegido");
-        ObjectOutputStream out = new ObjectOutputStream(cliente);
-        out.writeObject(unCliente);
-        out.close();
     }
     
     public Pedido encontrarPedido(int numero){

@@ -28,10 +28,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         boolean existe = false;
         try {
             Integer.parseInt(txtTelefonoCliente.getText());
-            existe = sistema.existeCliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText());
-            if (existe) {
-                showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
-            }
+            existe = sistema.existeCliente(txtNombreCliente.getText());
         } catch (NumberFormatException e) {
             JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
         }
@@ -229,12 +226,13 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionClienteActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        if (!this.clienteNoValido()) {
-            this.sistema.setListaClientes(txtNombreCliente.getText(), new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
+        if (this.clienteNoValido()) {
+            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
         } else {
+            this.sistema.setListaClientes(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
-        };
+        }
 
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 

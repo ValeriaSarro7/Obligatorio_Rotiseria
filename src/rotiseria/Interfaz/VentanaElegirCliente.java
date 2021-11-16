@@ -7,6 +7,8 @@ package rotiseria.Interfaz;
 
 import dominio.Cliente;
 import dominio.Sistema;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,20 +22,27 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;
+    private PropertyChangeSupport pCS2;
     
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
-        setLista(sistema.obtenerClaveClientes());
+        this.pCS2=new PropertyChangeSupport(this);
+        setLista(sistema.obtenerNombresClientes());
     }
+    
+    public void agregarListenerpCS2(PropertyChangeListener listener){
+       pCS2.addPropertyChangeListener(listener);
+    } 
     
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
     }
     
-    public void obtenerNombreCliente() throws IOException{
+    public void obtenerNombreCliente(){
         String valor=(String)lstClientesECliente.getSelectedValue();
-        this.sistema.guardarCliente(valor);
+        this.sistema.darCliente(valor);
+        pCS2.firePropertyChange("nombre", "previo", valor );
     }
 
     @SuppressWarnings("unchecked")
@@ -220,15 +229,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
         txtClienteECliente.setText("");
-        setLista(sistema.obtenerClaveClientes());
+        setLista(sistema.obtenerNombresClientes());
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
-        try {
-            obtenerNombreCliente();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR GUARDAR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        obtenerNombreCliente();
         showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed

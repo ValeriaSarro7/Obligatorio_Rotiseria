@@ -59,6 +59,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
         }
     }
+    public void setCliente(){
+        
+    }
     
 
     @SuppressWarnings("unchecked")
@@ -335,26 +338,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        FileInputStream cliente = null;
+        //FileInputStream cliente = null;
         VentanaElegirCliente elegirCliente = new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
-        try {
-            cliente = new FileInputStream("Cliente elegido");
-            ObjectInputStream in = new ObjectInputStream(cliente);
-            Cliente client = (Cliente) in.readObject();
-            in.close();
-            clienteElegido(client);
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException | ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                cliente.close();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR GUARDAR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        elegirCliente.agregarListenerpCS2(this);
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
@@ -406,5 +393,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         cargarCombo();
+        setCliente();
+        
     }
 }
