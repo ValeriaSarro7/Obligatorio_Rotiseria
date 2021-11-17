@@ -88,8 +88,9 @@ public class Sistema implements Serializable {
         return listaProductos;
     }
 
-    public void setListaProductos(Producto unProducto) {
+    public void setListaProductos(Producto unProducto, ArrayList categoriasProducto) {
         this.getListaProductos().add(unProducto);
+        unProducto.setListaCategorias(categoriasProducto);
         pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
 
@@ -192,7 +193,8 @@ public class Sistema implements Serializable {
         }
         return lista;
     }
-    public void agregarCategoriasProducto(List <String> categorias, Producto unProducto){
+    public ArrayList agregarCategoriasProducto(List <String> categorias, Producto unProducto){
+        ArrayList categoriasProducto= new ArrayList <Categoria> ();
         for(int i=0; i<categorias.size(); i++){
             Iterator<Categoria> it=getListaCategorias().iterator();
             Categoria unaC = null;
@@ -201,11 +203,12 @@ public class Sistema implements Serializable {
                 unaC=it.next();
                 if(unaC.getNombre().equalsIgnoreCase(categorias.get(i))){
                     encontre=true;
-                    unProducto.setListaCategorias(unaC);
+                    categoriasProducto.add(unaC);
                 }
                     
             }
         }
+        return categoriasProducto;
     }
 
 }

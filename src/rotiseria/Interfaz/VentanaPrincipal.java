@@ -65,6 +65,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }
     public void agregarBotones(){
+        System.out.print(this.sistema.getListaProductos().size());
         if(this.sistema.getListaProductos().size()!=0){
             pnlProductos.removeAll();
             String categoria = cmbCategoria.getSelectedItem().toString();
@@ -319,7 +320,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_rbtnPrioridadActionPerformed
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
-        
+        this.agregarBotones();
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed

@@ -7,6 +7,7 @@ package rotiseria.Interfaz;
 
 import dominio.Producto;
 import dominio.Sistema;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -243,8 +244,8 @@ public class VentanaProducto extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(productoValido()){
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
-            this.sistema.setListaProductos(unProducto);
-            this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedValuesList(),unProducto);
+            ArrayList categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedValuesList(),unProducto);
+            this.sistema.setListaProductos(unProducto, categoriasProducto);
             showMessageDialog(null,"Producto agregado con exito","Producto agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else{

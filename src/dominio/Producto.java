@@ -18,8 +18,9 @@ public class Producto {
         return listaCategorias;
     }
 
-    public void setListaCategorias(Categoria unaCategoria) {
-        this.getListaCategorias().add(unaCategoria);
+    public void setListaCategorias(ArrayList<Categoria> listCate){
+        
+        this.listaCategorias=listCate;
     }
 
     public String getNombre() {
