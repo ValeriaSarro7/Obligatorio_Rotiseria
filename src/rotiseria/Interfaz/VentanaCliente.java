@@ -21,18 +21,17 @@ public class VentanaCliente extends javax.swing.JFrame {
     public VentanaCliente(Sistema sistema) {
         initComponents();
         this.sistema = sistema;
-
     }
 
-    private boolean clienteNoValido() {
-        boolean existe = false;
+    public boolean telefonoNumerico() {
+        boolean esNumerico = false;
         try {
             Integer.parseInt(txtTelefonoCliente.getText());
-            existe = sistema.existeCliente(txtNombreCliente.getText());
+            esNumerico = true;
         } catch (NumberFormatException e) {
-            JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showConfirmDialog(null, "El teléfono solo puede contener números", "Texto ingresado", JOptionPane.CANCEL_OPTION);
         }
-        return existe;
+        return esNumerico;
     }
 
     /**
@@ -226,12 +225,13 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionClienteActionPerformed
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        if (this.clienteNoValido()) {
-            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
-        } else {
+        boolean existeCliente = this.sistema.existeCliente(txtNombreCliente.getText());
+        if (!existeCliente && this.telefonoNumerico()) {
             this.sistema.setListaClientes(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
+        } else if (existeCliente) {
+            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
