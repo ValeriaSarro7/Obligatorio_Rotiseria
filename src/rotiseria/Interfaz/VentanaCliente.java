@@ -33,6 +33,24 @@ public class VentanaCliente extends javax.swing.JFrame {
         }
         return esNumerico;
     }
+    
+    public boolean ingresaNombre(){
+        boolean ingresoNombre = true;
+        if(txtNombreCliente.getText() == null || txtNombreCliente.getText().equals("") || txtNombreCliente.getText().trim().equals("")){
+            ingresoNombre = false;
+            showMessageDialog(null, "Ingrese un nombre", "", JOptionPane.PLAIN_MESSAGE);
+        }
+        return ingresoNombre;
+    }
+    
+    public boolean ingresaDireccion(){
+     boolean ingresoDireccion = true;
+        if(txtDireccionCliente.getText() == null || txtDireccionCliente.getText().equals("") || txtDireccionCliente.getText().trim().equals("")){
+            ingresoDireccion = false;
+            showMessageDialog(null, "Ingrese una dirección", "", JOptionPane.PLAIN_MESSAGE);
+        }
+        return ingresoDireccion;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -226,7 +244,7 @@ public class VentanaCliente extends javax.swing.JFrame {
 
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         boolean existeCliente = this.sistema.existeCliente(txtNombreCliente.getText());
-        if (!existeCliente && this.telefonoNumerico()) {
+        if (!existeCliente && this.telefonoNumerico() && this.ingresaNombre() && this.ingresaDireccion()) {
             this.sistema.setListaClientes(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
