@@ -7,6 +7,8 @@ package rotiseria.Interfaz;
 
 import dominio.Cliente;
 import dominio.Sistema;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,15 +26,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
-        setLista(sistema.obtenerClaveClientes());
-    }
+        setLista(sistema.obtenerNombresClientes());
+    } 
     
     private void setLista (String[] lista){
         lstClientesECliente.setListData(lista);
-    }
-    public void obtenerNombreCliente() throws IOException{
-        String valor=(String)lstClientesECliente.getSelectedValue();
-        this.sistema.guardarCliente(valor);
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +73,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
         jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         lstClientesECliente.setBackground(new java.awt.Color(204, 255, 204));
+        lstClientesECliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         lstClientesECliente.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 lstClientesEClienteValueChanged(evt);
@@ -218,15 +217,12 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
         txtClienteECliente.setText("");
-        setLista(sistema.obtenerClaveClientes());
+        setLista(sistema.obtenerNombresClientes());
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
-        try {
-            obtenerNombreCliente();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR GUARDAR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        String valor=(String)lstClientesECliente.getSelectedValue();
+        this.sistema.setClienteSeleccionado(this.sistema.darCliente(valor));
         showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed

@@ -8,12 +8,19 @@ public class Producto {
     private String nombre;
     private int precio;
 
+    public Producto(String nombre, int precio) {
+        this.listaCategorias = new ArrayList<Categoria>();
+        this.nombre = nombre;
+        this.precio = precio;
+    }
+
     public ArrayList<Categoria> getListaCategorias() {
         return listaCategorias;
     }
 
-    public void setListaCategorias(ArrayList<Categoria> listaCategorias) {
-        this.listaCategorias = listaCategorias;
+    public void setListaCategorias(ArrayList<Categoria> listCate){
+        
+        this.listaCategorias=listCate;
     }
 
     public String getNombre() {
@@ -31,4 +38,5 @@ public class Producto {
     public void setPrecio(int precio) {
         this.precio = precio;
     }
+    
 }
