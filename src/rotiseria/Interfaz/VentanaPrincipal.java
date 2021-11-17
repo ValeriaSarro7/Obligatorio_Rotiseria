@@ -1,42 +1,98 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rotiseria.Interfaz;
 
+import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Sistema;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.System.Logger;
-import java.lang.System.Logger.Level;
+import java.awt.Color;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Collections;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import utils.OrdenAlfabetico;
+import utils.OrdenPrioridad;
 
 /**
  *
  * @author Usuario
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema sistema;
 
     public VentanaPrincipal(Sistema unSistema) {
         initComponents();
         this.sistema = unSistema;
+        this.sistema.agregarListenerpCS1(this);
+        this.cerrarVentana();
+    }
+    public void cerrarVentana(){
+        addWindowListener (new WindowAdapter (){
+            @Override
+            public void windowClosing (WindowEvent  e){
+                showMessageDialog(null, "Datos guardados exitosamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                System.exit (0);
+            }
+         });
     }
 
     public void clienteElegido(Cliente unCliente) {
         lblDatosCliente.setText(unCliente.toString());
     }
+    public void cargarCombo(){
+        if(this.sistema.getListaCategorias().size()!=0){
+            cmbCategoria.removeAllItems();
+            if(rbtnPrioridad.isSelected()){
+                Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
+            }else{
+                Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
+            }
+            for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
+                cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
+            }
+        }
+    }
+    public void setCliente(){
+        lblDatosCliente.setText("");
+        if(!this.sistema.getClienteSeleccionado().getNombre().equals("")){
+            lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
+        }
+    }
+    public void agregarBotones(){
+        System.out.print(this.sistema.getListaProductos().size());
+        if(this.sistema.getListaProductos().size()!=0){
+            pnlProductos.removeAll();
+            String categoria = cmbCategoria.getSelectedItem().toString();
+            for(int i=0; i<this.sistema.getListaProductos().size(); i++){
+                for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias()){
+                    if(unaCategoria.getNombre().equalsIgnoreCase(categoria)){
+                        JButton nuevo = new JButton(" ");
+                        nuevo.setMargin(new Insets(-5, -5, -5, -5));
+                        nuevo.setBackground(Color.BLACK);
+                        nuevo.setForeground(Color.WHITE);
+                        nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
+                        nuevo.addActionListener(new ProductoListener());
+                        pnlProductos.add(nuevo);
+                    }
+                }
+            }
+        }
+    }
+    
+    private class ProductoListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JButton cual = ((JButton) e.getSource());
+            System.out.print(cual.toString());
+        }
+    }    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -62,14 +118,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnReiniciarPedido = new javax.swing.JButton();
         lblCostoTotal = new javax.swing.JLabel();
         pnlProductos = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstProductosDePedido = new javax.swing.JList<>();
         btnEliminarItem = new javax.swing.JButton();
         btnGrabarPedido = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Rotisería");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -126,6 +181,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         rbtnAlfabetico.setBorderPainted(true);
         rbtnAlfabetico.setFocusCycleRoot(true);
         rbtnAlfabetico.setPreferredSize(new java.awt.Dimension(174, 19));
+        rbtnAlfabetico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAlfabeticoActionPerformed(evt);
+            }
+        });
         jPanel2.add(rbtnAlfabetico);
 
         rbtnPrioridad.setBackground(new java.awt.Color(204, 204, 204));
@@ -214,20 +274,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pnlProductos.setBackground(new java.awt.Color(204, 255, 204));
         pnlProductos.setForeground(new java.awt.Color(0, 0, 0));
         pnlProductos.setLayout(new java.awt.GridLayout(3, 0));
-
-        jButton8.setBackground(new java.awt.Color(0, 0, 0));
-        jButton8.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Empanada");
-        jButton8.setToolTipText("");
-        jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        pnlProductos.add(jButton8);
-
         jPanel1.add(pnlProductos);
 
         jPanel7.setLayout(new java.awt.GridLayout(1, 0));
@@ -270,16 +316,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tfdObservacionesActionPerformed
 
     private void rbtnPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnPrioridadActionPerformed
-        // TODO add your handling code here:
+        this.cargarCombo();
     }//GEN-LAST:event_rbtnPrioridadActionPerformed
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
-        // TODO add your handling code here:
+        this.agregarBotones();
     }//GEN-LAST:event_cmbCategoriaActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         VentanaCliente agregarCliente = new VentanaCliente(sistema);
@@ -287,41 +329,27 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        VentanaCategoria ventCategoria = new VentanaCategoria();
+        VentanaCategoria ventCategoria = new VentanaCategoria(sistema);
         ventCategoria.setVisible(true);
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        VentanaProducto agregarProducto = new VentanaProducto();
+        VentanaProducto agregarProducto = new VentanaProducto(sistema);
         agregarProducto.setVisible(true);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        VentanaPedido verPedido = new VentanaPedido();
-        verPedido.setVisible(true);
+        if(this.sistema.getListaPedidos().isEmpty()){
+            showMessageDialog(null, "Primero debe ingresar un pedido", "Ingrese Pedido", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            VentanaPedido verPedido = new VentanaPedido(sistema);
+            verPedido.setVisible(true);
+        }
     }//GEN-LAST:event_btnVerPedidosActionPerformed
 
     private void elegirClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_elegirClienteActionPerformed
-        FileInputStream cliente = null;
         VentanaElegirCliente elegirCliente = new VentanaElegirCliente(sistema);
         elegirCliente.setVisible(true);
-        try {
-            cliente = new FileInputStream("Cliente elegido");
-            ObjectInputStream in = new ObjectInputStream(cliente);
-            Cliente client = (Cliente) in.readObject();
-            in.close();
-            clienteElegido(client);
-        } catch (FileNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } catch (IOException | ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR ABRIR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            try {
-                cliente.close();
-            } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "ERROR AL INTENTAR GUARDAR ARCHIVO", "ERROR", JOptionPane.ERROR_MESSAGE);
-            }
-        }
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
@@ -337,6 +365,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
 
+    private void rbtnAlfabeticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAlfabeticoActionPerformed
+        this.cargarCombo();
+    }//GEN-LAST:event_rbtnAlfabeticoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnClientes;
@@ -348,7 +380,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JButton elegirCliente;
-    private javax.swing.JButton jButton8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -365,4 +396,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnPrioridad;
     private javax.swing.JTextField tfdObservaciones;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        this.cargarCombo();
+        this.agregarBotones();
+        this.setCliente();
+    }
 }
