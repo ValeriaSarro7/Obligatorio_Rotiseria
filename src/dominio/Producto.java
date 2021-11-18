@@ -19,7 +19,6 @@ public class Producto {
     }
 
     public void setListaCategorias(ArrayList<Categoria> listCate){
-        
         this.listaCategorias=listCate;
     }
 

@@ -59,6 +59,14 @@ public class Pedido {
         this.observaciones = observaciones;
     }
     
+    public void calularPrecio(){
+        int precioTotal=this.getPrecioTotal();
+        for(Producto producto: this.getListaProdcutos()){
+            precioTotal+=producto.getPrecio();
+        }
+        this.setPrecioTotal(precioTotal);
+    }
+    
     @Override
     public String toString(){
         return this.getNumero()+"\n"+getUnCliente();

@@ -245,7 +245,7 @@ public class VentanaProducto extends javax.swing.JFrame {
         if(productoValido()){
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
             ArrayList categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedValuesList(),unProducto);
-            this.sistema.setListaProductos(unProducto, categoriasProducto);
+            this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
             showMessageDialog(null,"Producto agregado con exito","Producto agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else{

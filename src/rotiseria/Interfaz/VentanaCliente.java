@@ -245,7 +245,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
         boolean existeCliente = this.sistema.existeCliente(txtNombreCliente.getText());
         if (!existeCliente && this.telefonoNumerico() && this.ingresaNombre() && this.ingresaDireccion()) {
-            this.sistema.setListaClientes(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
+            this.sistema.agregarClientesALista(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
             showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         } else if (existeCliente) {

@@ -239,7 +239,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(categoriaValida()){
-            this.sistema.setListaCategorias(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex() , txtDetallesProducto.getText()));
+            this.sistema.agregarCategoriaALista(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex() , txtDetallesProducto.getText()));
             showMessageDialog(null,"Categoria agregada con éxito","Agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }
