@@ -3,9 +3,7 @@ package dominio;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.*;
-;
 import java.util.*;
-
 
 public class Sistema implements Serializable {
 
@@ -35,6 +33,20 @@ public class Sistema implements Serializable {
         pCS1.firePropertyChange("nombre", "previo", "nuevo" );
     }
     
+    public void setListaCategorias(ArrayList<Categoria> lista){
+        this.listaCategorias=lista;
+    }
+    public void setListaClientes(ArrayList<Cliente> lista){
+        this.listaClientes=lista;
+    }
+    public void setListaPedidos(ArrayList<Pedido> lista){
+        this.listaPedidos=lista;
+    }
+    public void setListaProductos(ArrayList<Producto> lista){
+        this.listaProductos=lista;
+    }
+    
+    
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
     }
@@ -43,8 +55,7 @@ public class Sistema implements Serializable {
         return listaClientes;
     }
 
-    // no es redundante pasar el nombre como string y como atributo de cliente? 
-    public void setListaClientes(Cliente cliente) {
+    public void agregarClientesALista(Cliente cliente) {
         this.getListaClientes().add(cliente);
     }
 
@@ -62,7 +73,7 @@ public class Sistema implements Serializable {
         return listaCategorias;
     }
 
-    public void setListaCategorias(Categoria categoria) {
+    public void agregarCategoriaALista(Categoria categoria) {
         this.getListaCategorias().add(categoria);   
         pCS1.firePropertyChange("valor", "previo", "nuevo");
     }
@@ -80,15 +91,11 @@ public class Sistema implements Serializable {
         return listaPedidos;
     }
 
-    public void setListaPedidos(Pedido unPedido) {
-        this.getListaPedidos().add(unPedido);
-    }
-
     public ArrayList<Producto> getListaProductos() {
         return listaProductos;
     }
 
-    public void setListaProductos(Producto unProducto, ArrayList categoriasProducto) {
+    public void agregarProductoaLista(Producto unProducto, ArrayList categoriasProducto) {
         this.getListaProductos().add(unProducto);
         unProducto.setListaCategorias(categoriasProducto);
         pCS1.firePropertyChange("valor", "previo", "nuevo");

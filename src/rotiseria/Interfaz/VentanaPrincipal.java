@@ -2,6 +2,8 @@ package rotiseria.Interfaz;
 
 import dominio.Categoria;
 import dominio.Cliente;
+import dominio.Pedido;
+import dominio.Producto;
 import dominio.Sistema;
 import java.awt.Color;
 import java.awt.Insets;
@@ -64,11 +66,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
         }
     }
-    public void agregarBotones(){
-        System.out.print(this.sistema.getListaProductos().size());
+    public void agregarBotones(String categoria){
         if(this.sistema.getListaProductos().size()!=0){
             pnlProductos.removeAll();
-            String categoria = cmbCategoria.getSelectedItem().toString();
             for(int i=0; i<this.sistema.getListaProductos().size(); i++){
                 for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias()){
                     if(unaCategoria.getNombre().equalsIgnoreCase(categoria)){
@@ -93,6 +93,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }    
     
+    public void mostrarTotal(Pedido unPedido){
+        lblCostoTotal.setText("$ " + String.valueOf((unPedido.getPrecioTotal())));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -176,6 +179,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         buttonGroup1.add(rbtnAlfabetico);
         rbtnAlfabetico.setFont(new java.awt.Font("Segoe UI Variable", 0, 10)); // NOI18N
         rbtnAlfabetico.setForeground(new java.awt.Color(0, 0, 0));
+        rbtnAlfabetico.setSelected(true);
         rbtnAlfabetico.setText("Categorías por orden Alfabético");
         rbtnAlfabetico.setActionCommand("");
         rbtnAlfabetico.setBorderPainted(true);
@@ -249,6 +253,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         cmbCategoria.setForeground(new java.awt.Color(0, 0, 0));
         cmbCategoria.setToolTipText("");
         cmbCategoria.setAutoscrolls(true);
+        cmbCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCategoriaItemStateChanged(evt);
+            }
+        });
         cmbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCategoriaActionPerformed(evt);
@@ -320,7 +329,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_rbtnPrioridadActionPerformed
 
     private void cmbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCategoriaActionPerformed
-        this.agregarBotones();
+
     }//GEN-LAST:event_cmbCategoriaActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
@@ -369,6 +378,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         this.cargarCombo();
     }//GEN-LAST:event_rbtnAlfabeticoActionPerformed
 
+    private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
+        if(cmbCategoria.getSelectedItem()!= null){
+            this.agregarBotones(cmbCategoria.getSelectedItem().toString());
+        } 
+    }//GEN-LAST:event_cmbCategoriaItemStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnClientes;
@@ -399,8 +414,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        //this.agregarBotones(this.sistema.getListaCategorias().get(0).toString());
         this.cargarCombo();
-        this.agregarBotones();
         this.setCliente();
     }
 }
