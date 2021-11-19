@@ -105,7 +105,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }
     
     public void generarListaProductos(){
-        lstProductosDePedido.setListData(this.sistema.getListaProdcutosSeleccionados().toArray());
+        if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
+            lstProductosDePedido.setListData((String[]) this.sistema.getListaProdcutosSeleccionados().toArray());
+        }
     }
 
     @SuppressWarnings("unchecked")
