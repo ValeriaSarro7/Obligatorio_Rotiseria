@@ -77,7 +77,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                         nuevo.setBackground(Color.BLACK);
                         nuevo.setForeground(Color.WHITE);
                         nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
-                        nuevo.addActionListener(new ProductoListener());
+                        nuevo.addActionListener(new ProductoListener(this.sistema));
                         pnlProductos.add(nuevo);
                     }
                 }
@@ -85,16 +85,29 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }
     
-    private class ProductoListener implements ActionListener {
+    public class ProductoListener implements ActionListener {
+        
+        private Sistema sistema;
+        
+        public ProductoListener(Sistema sistema){
+            this.sistema=sistema;
+        }
+        
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton cual = ((JButton) e.getSource());
-            System.out.print(cual.toString());
+            this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText().toString()));
         }
     }    
     
-    public void mostrarTotal(Pedido unPedido){
-        lblCostoTotal.setText("$ " + String.valueOf((unPedido.getPrecioTotal())));
+    public void mostrarTotal(){
+        lblCostoTotal.setText("$ " + String.valueOf((this.sistema.precioPedidoEnCurso())));
+    }
+    
+    public void generarListaProductos(){
+        if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
+            lstProductosDePedido.setListData((String[]) this.sistema.getListaProdcutosSeleccionados().toArray());
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -417,5 +430,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         //this.agregarBotones(this.sistema.getListaCategorias().get(0).toString());
         this.cargarCombo();
         this.setCliente();
+        this.mostrarTotal();
+        this.generarListaProductos();
     }
 }

@@ -13,6 +13,7 @@ public class Sistema implements Serializable {
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
     private Cliente clienteSeleccionado;
+    private ArrayList<Producto> listaProdcutosSeleccionados;
     private PropertyChangeSupport pCS1;
 
 
@@ -21,6 +22,7 @@ public class Sistema implements Serializable {
         listaCategorias = new ArrayList<Categoria>();
         listaPedidos = new ArrayList<Pedido>();
         listaProductos = new ArrayList<Producto>();
+        listaProdcutosSeleccionados = new ArrayList<Producto>();
         clienteSeleccionado = new Cliente("","","");
         this.pCS1=new PropertyChangeSupport(this);
     }
@@ -45,6 +47,15 @@ public class Sistema implements Serializable {
     public void setListaProductos(ArrayList<Producto> lista){
         this.listaProductos=lista;
     }
+
+    public ArrayList<Producto> getListaProdcutosSeleccionados() {
+        return listaProdcutosSeleccionados;
+    }
+
+    public void setListaProdcutosSeleccionados(ArrayList<Producto> listaProdcutosSeleccionados) {
+        this.listaProdcutosSeleccionados = listaProdcutosSeleccionados;
+    }
+    
     
     
     public void agregarListenerpCS1(PropertyChangeListener listener){
@@ -216,6 +227,27 @@ public class Sistema implements Serializable {
             }
         }
         return categoriasProducto;
+    }
+
+    public Producto darProducto(String producto) {
+        Producto prod=null;
+        for(Producto unProducto:this.getListaProductos()){
+            if(unProducto.getNombre().equalsIgnoreCase(producto)){
+                prod=unProducto;
+            }
+        }
+        return prod;
+    }
+    public void agregarAListaProductosSeleccionados(Producto unP){
+        this.getListaProdcutosSeleccionados().add(unP);
+        pCS1.firePropertyChange("valor", "previo", "nuevo");
+    }
+    public int precioPedidoEnCurso(){
+        int total=0;
+        for(Producto unP: this.getListaProdcutosSeleccionados()){
+            total+=unP.getPrecio();
+        }
+        return total;
     }
 
 }
