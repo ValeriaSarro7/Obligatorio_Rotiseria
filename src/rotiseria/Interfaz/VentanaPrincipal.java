@@ -1,5 +1,6 @@
 package rotiseria.Interfaz;
 
+import java.util.*;
 import dominio.Categoria;
 import dominio.Cliente;
 import dominio.Pedido;
@@ -48,7 +49,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         lblDatosCliente.setText(unCliente.toString());
     }
     public void cargarCombo(){
-        if(this.sistema.getListaCategorias().size()!=0){
+        if(!this.sistema.getListaCategorias().isEmpty()){
             cmbCategoria.removeAllItems();
             if(rbtnPrioridad.isSelected()){
                 Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
@@ -67,7 +68,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         }
     }
     public void agregarBotones(String categoria){
-        if(this.sistema.getListaProductos().size()!=0){
+        if(!this.sistema.getListaProductos().isEmpty()){
             pnlProductos.removeAll();
             for(int i=0; i<this.sistema.getListaProductos().size(); i++){
                 for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias()){
@@ -96,7 +97,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton cual = ((JButton) e.getSource());
-            this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText().toString()));
+            this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText()));
         }
     }    
     
@@ -105,8 +106,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }
     
     public void generarListaProductos(){
+        lstProductosDePedido.removeAll();
         if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
-            lstProductosDePedido.setListData((String[]) this.sistema.getListaProdcutosSeleccionados().toArray());
+            lstProductosDePedido.setListData(sistema.arrayProductosSeleccionados());
         }
     }
 
@@ -284,6 +286,11 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
         btnReiniciarPedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 12)); // NOI18N
         btnReiniciarPedido.setText("Reiniciar Pedido");
+        btnReiniciarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReiniciarPedidoActionPerformed(evt);
+            }
+        });
         jPanel6.add(btnReiniciarPedido);
 
         lblCostoTotal.setBackground(new java.awt.Color(204, 255, 204));
@@ -375,6 +382,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
+        
         showMessageDialog(null, "Pedido grabado con exito", "Pedido grabado", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_btnGrabarPedidoActionPerformed
 
@@ -383,7 +391,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         //0 es OK
         //2 es Cancel
         if (respuesta == 0) {
-
+            for(int i=0; i<this.sistema.getListaProdcutosSeleccionados().size();i++){
+                if(this.sistema.getListaProdcutosSeleccionados().get(i).getNombre().equalsIgnoreCase(lstProductosDePedido.getSelectedValue())){
+                    this.sistema.getListaProdcutosSeleccionados().remove(i);
+                    this.generarListaProductos();
+                }
+            }
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
 
@@ -396,6 +409,22 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             this.agregarBotones(cmbCategoria.getSelectedItem().toString());
         } 
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
+
+    private void btnReiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarPedidoActionPerformed
+        //this.sistema.setListaProdcutosSeleccionados(new ArrayList<Producto>());
+        /*for(int i=0; i<this.sistema.getListaProdcutosSeleccionados().size();i++){
+            this.sistema.getListaProdcutosSeleccionados().remove(i);
+        }*/
+        for(Producto unP: this.sistema.getListaProdcutosSeleccionados()){
+            this.sistema.getListaProdcutosSeleccionados().remove(unP);
+        }
+        tfdObservaciones.removeAll();
+        this.sistema.setClienteSeleccionado(new Cliente("","",""));
+        this.cargarCombo();
+        this.setCliente();
+        this.mostrarTotal();
+        this.generarListaProductos();     
+    }//GEN-LAST:event_btnReiniciarPedidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;

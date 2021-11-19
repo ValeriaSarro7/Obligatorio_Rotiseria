@@ -56,8 +56,6 @@ public class Sistema implements Serializable {
         this.listaProdcutosSeleccionados = listaProdcutosSeleccionados;
     }
     
-    
-    
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
     }
@@ -211,6 +209,18 @@ public class Sistema implements Serializable {
         }
         return lista;
     }
+    public String[] arrayProductosSeleccionados(){
+        String[] lista=new String[this.getListaProdcutosSeleccionados().size()];
+        int cont=0;
+        Iterator<Producto> it=this.getListaProdcutosSeleccionados().iterator();
+        while(it.hasNext()){
+            Producto unP=it.next();
+            lista[cont]=unP.toString();
+            cont++;
+        }
+        return lista;
+    }
+    
     public ArrayList agregarCategoriasProducto(List <String> categorias, Producto unProducto){
         ArrayList categoriasProducto= new ArrayList <Categoria> ();
         for(int i=0; i<categorias.size(); i++){
