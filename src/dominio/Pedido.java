@@ -10,6 +10,7 @@ public class Pedido {
     private Cliente unCliente;
     private int precioTotal;
     private String observaciones;
+    
 
     public Pedido( int numero, Cliente unCliente, int precioTotal, String observaciones) {
         this.listaProdcutos=new ArrayList<Producto>();
