@@ -1,4 +1,4 @@
-
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package dominio;
 
 import java.util.*;
@@ -12,8 +12,8 @@ public class Pedido {
     private String observaciones;
     
 
-    public Pedido( int numero, Cliente unCliente, int precioTotal, String observaciones) {
-        this.listaProdcutos=new ArrayList<Producto>();
+    public Pedido( int numero, Cliente unCliente, int precioTotal, String observaciones, ArrayList<Producto> listP) {
+        this.listaProdcutos=listP;
         this.numero = numero;
         this.unCliente = unCliente;
         this.precioTotal = precioTotal;
@@ -70,7 +70,7 @@ public class Pedido {
     
     @Override
     public String toString(){
-        return this.getNumero()+"\n"+getUnCliente();
+        return this.getNumero()+" - "+getUnCliente();
     }
     
 }

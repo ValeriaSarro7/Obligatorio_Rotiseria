@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
 import dominio.Pedido;
@@ -26,18 +22,8 @@ public class VentanaPedido extends javax.swing.JFrame {
     public VentanaPedido(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
-        listar(this.sistema.arrayPedidos(sistema.getListaPedidos()),1);
-    }
-    
-    public void listar(String[] lista, int opcion){
-        if(opcion==1){
-            lstPedidosPedido.setListData(lista);
-        }else{
-            lstProductoPedido.setListData(lista);
-        }    
-    }
-    
-    
+        lstPedidosPedido.setListData(this.sistema.getListaPedidos().toArray());
+    }    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -52,11 +38,11 @@ public class VentanaPedido extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         lblSeleccionePedido = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstPedidosPedido = new javax.swing.JList<>();
+        lstPedidosPedido = new javax.swing.JList();
         jPanel7 = new javax.swing.JPanel();
         lblProductoPedido = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        lstProductoPedido = new javax.swing.JList<>();
+        lstProductoPedido = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
         lblClientePedido = new javax.swing.JLabel();
         lblClientePedidoSeleccionado = new javax.swing.JLabel();
@@ -159,6 +145,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         lstProductoPedido.setBackground(new java.awt.Color(204, 255, 204));
         lstProductoPedido.setForeground(new java.awt.Color(0, 0, 0));
+        lstProductoPedido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(lstProductoPedido);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -279,14 +266,13 @@ public class VentanaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstPedidosPedidoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPedidosPedidoValueChanged
-        String eleccion= (String)lstPedidosPedido.getSelectedValue();
-        String numero= eleccion.split("\n")[0];
-        Pedido pedidoElegido= this.sistema.encontrarPedido(Integer.parseInt(numero));
-        listar(this.sistema.arrayProductos(pedidoElegido.getListaProdcutos()), 2);
-        lblNumero.setText(eleccion);
-        lblClientePedidoSeleccionado.setText(pedidoElegido.getUnCliente().getNombre().toString());
-        lblPrecioPedidoSeleccionado.setText("$"+Integer.toString(pedidoElegido.getPrecioTotal()));
-        jArDatosPedidos.setText("Observaciones: " + pedidoElegido.getObservaciones());
+        Pedido eleccion= (Pedido)lstPedidosPedido.getSelectedValue();
+        int numero= eleccion.getNumero();
+        lstProductoPedido.setListData((eleccion.getListaProdcutos()).toArray());
+        lblNumero.setText(String.valueOf(eleccion.getNumero()));
+        lblClientePedidoSeleccionado.setText(eleccion.getUnCliente().getNombre());
+        lblPrecioPedidoSeleccionado.setText("$"+Integer.toString(eleccion.getPrecioTotal()));
+        jArDatosPedidos.setText("Observaciones: " + eleccion.getObservaciones());
         
         
     }//GEN-LAST:event_lstPedidosPedidoValueChanged
@@ -312,7 +298,7 @@ public class VentanaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel lblPrecioPedidoSeleccionado;
     private javax.swing.JLabel lblProductoPedido;
     private javax.swing.JLabel lblSeleccionePedido;
-    private javax.swing.JList<String> lstPedidosPedido;
-    private javax.swing.JList<String> lstProductoPedido;
+    private javax.swing.JList lstPedidosPedido;
+    private javax.swing.JList lstProductoPedido;
     // End of variables declaration//GEN-END:variables
 }

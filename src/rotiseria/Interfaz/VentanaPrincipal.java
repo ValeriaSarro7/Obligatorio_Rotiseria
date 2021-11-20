@@ -1,3 +1,4 @@
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
 import java.util.*;
@@ -109,9 +110,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         String [] vacio =new String [0];
         lstProductosDePedido.setListData(vacio);
         if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
-            lstProductosDePedido.setListData(sistema.arrayProductosSeleccionados());
+            lstProductosDePedido.setListData(sistema.getListaProdcutosSeleccionados().toArray());
         }
         
+    }
+    private void resetearPedido(){
+        Iterator<Producto> it=this.sistema.getListaProdcutosSeleccionados().iterator();
+        while(it.hasNext()){
+            this.sistema.getListaProdcutosSeleccionados().remove(0);
+        }
+        tfdObservaciones.setText("");
+        this.sistema.setClienteSeleccionado(new Cliente("","",""));
+        this.cargarCombo();
+        this.setCliente();
+        this.mostrarTotal();
+        this.generarListaProductos(); 
     }
 
     @SuppressWarnings("unchecked")
@@ -140,7 +153,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         pnlProductos = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstProductosDePedido = new javax.swing.JList<>();
+        lstProductosDePedido = new javax.swing.JList();
         btnEliminarItem = new javax.swing.JButton();
         btnGrabarPedido = new javax.swing.JButton();
 
@@ -312,6 +325,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         lstProductosDePedido.setBackground(new java.awt.Color(255, 255, 255));
         lstProductosDePedido.setFont(new java.awt.Font("Segoe UI Variable", 0, 10)); // NOI18N
         lstProductosDePedido.setForeground(new java.awt.Color(0, 0, 0));
+        lstProductosDePedido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane1.setViewportView(lstProductosDePedido);
 
         jPanel7.add(jScrollPane1);
@@ -385,7 +399,20 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
         
-        showMessageDialog(null, "Pedido grabado con exito", "Pedido grabado", JOptionPane.PLAIN_MESSAGE);
+        Cliente unC=this.sistema.getClienteSeleccionado();
+        ArrayList <Producto> lstP=this.sistema.getListaProdcutosSeleccionados();
+        if(unC.getNombre().equalsIgnoreCase("")){
+            showMessageDialog(null, "Primero debe elegir un Cliente", "Problema", JOptionPane.INFORMATION_MESSAGE);
+        }else if(lstP.size()==0){
+            showMessageDialog(null, "Primero debe elegir por lo menos un producto", "Problema", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            String obs=tfdObservaciones.getText();
+            int num= this.sistema.getListaPedidos().size()+1;
+            int precioT= this.sistema.precioPedidoEnCurso();
+            this.sistema.agregarPedidoALista(new Pedido(num, unC,precioT,obs, lstP));
+            showMessageDialog(null, "Pedido agregado con exito!", "EXITO!", JOptionPane.PLAIN_MESSAGE);
+        }
+        resetearPedido();
     }//GEN-LAST:event_btnGrabarPedidoActionPerformed
 
     private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
@@ -393,11 +420,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         //0 es OK
         //2 es Cancel
         if (respuesta == 0) {
-            for(int i=0; i<(this.sistema.getListaProdcutosSeleccionados().size()); i++){
-                if(this.sistema.getListaProdcutosSeleccionados().get(i).getNombre().equalsIgnoreCase(lstProductosDePedido.getSelectedValue())){
-                    this.sistema.getListaProdcutosSeleccionados().remove(i);
-                }
-            }
+            this.sistema.getListaProdcutosSeleccionados().remove(lstProductosDePedido.getSelectedIndex());
             this.generarListaProductos();
             this.mostrarTotal();
         }
@@ -414,16 +437,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 
     private void btnReiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarPedidoActionPerformed
-        Iterator<Producto> it=this.sistema.getListaProdcutosSeleccionados().iterator();
-        while(it.hasNext()){
-            this.sistema.getListaProdcutosSeleccionados().remove(0);
-        }
-        tfdObservaciones.removeAll();
-        this.sistema.setClienteSeleccionado(new Cliente("","",""));
-        this.cargarCombo();
-        this.setCliente();
-        this.mostrarTotal();
-        this.generarListaProductos();     
+        resetearPedido();
     }//GEN-LAST:event_btnReiniciarPedidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -447,7 +461,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     private javax.swing.JLabel lblCostoTotal;
     private javax.swing.JLabel lblDatosCliente;
     private javax.swing.JLabel lblObservaciones;
-    private javax.swing.JList<String> lstProductosDePedido;
+    private javax.swing.JList lstProductosDePedido;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JRadioButton rbtnAlfabetico;
     private javax.swing.JRadioButton rbtnPrioridad;
