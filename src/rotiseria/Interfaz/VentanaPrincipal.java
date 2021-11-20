@@ -106,10 +106,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }
     
     public void generarListaProductos(){
-        lstProductosDePedido.removeAll();
+        String [] vacio =new String [1];
+        lstProductosDePedido.setListData(vacio);
         if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
             lstProductosDePedido.setListData(sistema.arrayProductosSeleccionados());
         }
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -397,6 +399,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                     this.generarListaProductos();
                 }
             }
+            this.mostrarTotal();
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
 
@@ -412,11 +415,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void btnReiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarPedidoActionPerformed
         //this.sistema.setListaProdcutosSeleccionados(new ArrayList<Producto>());
-        /*for(int i=0; i<this.sistema.getListaProdcutosSeleccionados().size();i++){
+        System.out.print(this.sistema.getListaProdcutosSeleccionados().size());
+        for(int i=0; i<4;i++){
             this.sistema.getListaProdcutosSeleccionados().remove(i);
-        }*/
-        for(Producto unP: this.sistema.getListaProdcutosSeleccionados()){
-            this.sistema.getListaProdcutosSeleccionados().remove(unP);
         }
         tfdObservaciones.removeAll();
         this.sistema.setClienteSeleccionado(new Cliente("","",""));
