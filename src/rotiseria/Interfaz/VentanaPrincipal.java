@@ -40,7 +40,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         addWindowListener (new WindowAdapter (){
             @Override
             public void windowClosing (WindowEvent  e){
-                showMessageDialog(null, "Datos guardados exitosamente!", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+                showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
                 System.exit (0);
             }
          });
@@ -385,7 +385,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
         if(this.sistema.getListaPedidos().isEmpty()){
-            showMessageDialog(null, "Primero debe ingresar un pedido", "Ingrese Pedido", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog(null, "¡Primero debe ingresar un pedido!", "¡Ingrese Pedido!", JOptionPane.INFORMATION_MESSAGE);
         }else{
             VentanaPedido verPedido = new VentanaPedido(sistema);
             verPedido.setVisible(true);
@@ -402,21 +402,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         Cliente unC=this.sistema.getClienteSeleccionado();
         ArrayList <Producto> lstP=this.sistema.getListaProdcutosSeleccionados();
         if(unC.getNombre().equalsIgnoreCase("")){
-            showMessageDialog(null, "Primero debe elegir un Cliente", "Problema", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog(null, "¡Primero debe elegir un Cliente!", "¡Problema!", JOptionPane.INFORMATION_MESSAGE);
         }else if(lstP.size()==0){
-            showMessageDialog(null, "Primero debe elegir por lo menos un producto", "Problema", JOptionPane.INFORMATION_MESSAGE);
+            showMessageDialog(null, "¡Primero debe elegir por lo menos un producto!", "¡Problema!", JOptionPane.INFORMATION_MESSAGE);
         }else{
             String obs=tfdObservaciones.getText();
             int num= this.sistema.getListaPedidos().size()+1;
             int precioT= this.sistema.precioPedidoEnCurso();
             this.sistema.agregarPedidoALista(new Pedido(num, unC,precioT,obs, lstP));
-            showMessageDialog(null, "Pedido agregado con exito!", "EXITO!", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "Pedido agregado con éxito!", "¡ÉXITO!", JOptionPane.PLAIN_MESSAGE);
         }
         resetearPedido();
     }//GEN-LAST:event_btnGrabarPedidoActionPerformed
 
     private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar pedido?", "Eliminar Pedido", JOptionPane.OK_CANCEL_OPTION);
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar pedido?", "¡Eliminar Pedido!", JOptionPane.OK_CANCEL_OPTION);
         //0 es OK
         //2 es Cancel
         if (respuesta == 0) {

@@ -28,7 +28,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         boolean esValido=true;
         esValido = !(sistema.existeCategoria(txtNombreCategoria.getText()));
         if (!esValido) {
-            showMessageDialog(null, "Ya existe la categoria!\n Ingrese otro nombre o cancele la operacion", "Categoria existe", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ya existe la categoría!\n Ingrese otro nombre o cancele la operación.", "¡Categoria existe!", JOptionPane.PLAIN_MESSAGE);
         }
         return esValido;
     }
@@ -236,7 +236,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(categoriaValida()){
             this.sistema.agregarCategoriaALista(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex() , txtDetallesProducto.getText()));
-            showMessageDialog(null,"Categoria agregada con éxito","Agregado", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null,"¡Categoría agregada con éxito!","¡Agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }
         

@@ -39,10 +39,6 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
     }
     
-    public boolean validarCliente(){
-        return true;
-    }
-    
     @Override
     public String toString(){
         return this.getNombre()+ "("+this.getDireccion()+" - " + this.getTelefono()+")";

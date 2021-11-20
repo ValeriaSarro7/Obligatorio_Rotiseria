@@ -243,10 +243,10 @@ public class VentanaProducto extends javax.swing.JFrame {
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
             ArrayList <Categoria> categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedIndices(),unProducto);
             this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
-            showMessageDialog(null,"Producto agregado con exito","Producto agregado", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null,"¡Producto agregado con éxito!","¡Producto agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else{
-            showMessageDialog(null, "Ya existe el producto!\n Ingrese otro nombre o cancele la operacion", "Producto existe", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ya existe el producto!\n Ingrese otro nombre o cancele la operación.", "¡Producto existe!", JOptionPane.PLAIN_MESSAGE);
         }
         
     }//GEN-LAST:event_btnAgregarProductoActionPerformed

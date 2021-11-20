@@ -220,7 +220,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
         String valor=(String)lstClientesECliente.getSelectedValue();
         this.sistema.setClienteSeleccionado(this.sistema.darCliente(valor));
-        showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(null,"¡Cliente seleccionado con éxito´!","¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
 
