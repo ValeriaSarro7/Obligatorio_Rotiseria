@@ -78,7 +78,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                         nuevo.setMargin(new Insets(-5, -5, -5, -5));
                         nuevo.setBackground(Color.BLACK);
                         nuevo.setForeground(Color.WHITE);
-                        nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()); 
+                        nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()+"- $"+ this.sistema.getListaProductos().get(i).getPrecio()); 
                         nuevo.addActionListener(new ProductoListener(this.sistema));
                         pnlProductos.add(nuevo);
                     }
@@ -98,7 +98,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton cual = ((JButton) e.getSource());
-            this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText()));
+            this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText().split("-")[0]));
         }
     }    
     
@@ -432,7 +432,8 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
         if(cmbCategoria.getSelectedItem()!= null){
-            this.agregarBotones(cmbCategoria.getSelectedItem().toString());
+            String contenido=cmbCategoria.getSelectedItem().toString().split("-")[0];
+            this.agregarBotones(contenido);
         } 
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 

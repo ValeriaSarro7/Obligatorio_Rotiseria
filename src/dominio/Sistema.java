@@ -109,7 +109,7 @@ public class Sistema implements Serializable {
         return listaProductos;
     }
 
-    public void agregarProductoaLista(Producto unProducto, ArrayList categoriasProducto) {
+    public void agregarProductoaLista(Producto unProducto, ArrayList <Categoria> categoriasProducto) {
         this.getListaProductos().add(unProducto);
         unProducto.setListaCategorias(categoriasProducto);
         pCS1.firePropertyChange("valor", "previo", "nuevo");
@@ -146,25 +146,15 @@ public class Sistema implements Serializable {
         }
         return existe;
     }
-    
-    public String[] obtenerNombresClientes(){
-        String[] array= new String[this.getListaClientes().size()];
-        int cont=0;
-        for(Cliente unCliente: this.getListaClientes()){
-            array[cont]=unCliente.getNombre();
-            cont++;
-        }
-        return array;
-    }
 
-    public String[] filtrarLista(String filtro) {
-        String lis = "";
+    public ArrayList<Cliente> filtrarLista(String filtro) {
+        ArrayList<Cliente> lis = new ArrayList<Cliente>();
         for (int i = 0; i < this.getListaClientes().size(); i++) {
             if (this.getListaClientes().get(i).getNombre().toUpperCase().contains(filtro.toUpperCase())) {
-                lis += this.getListaClientes().get(i).getNombre() + ";";
+                lis.add(this.getListaClientes().get(i));
             }
         }
-        return lis.split(";");
+        return lis;
     }
     
     public Pedido encontrarPedido(int numero){
