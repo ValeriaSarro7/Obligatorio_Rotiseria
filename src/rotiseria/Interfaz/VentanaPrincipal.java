@@ -106,7 +106,7 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }
     
     public void generarListaProductos(){
-        String [] vacio =new String [1];
+        String [] vacio =new String [0];
         lstProductosDePedido.setListData(vacio);
         if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
             lstProductosDePedido.setListData(sistema.arrayProductosSeleccionados());
@@ -393,12 +393,12 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         //0 es OK
         //2 es Cancel
         if (respuesta == 0) {
-            for(int i=0; i<this.sistema.getListaProdcutosSeleccionados().size();i++){
+            for(int i=0; i<(this.sistema.getListaProdcutosSeleccionados().size()); i++){
                 if(this.sistema.getListaProdcutosSeleccionados().get(i).getNombre().equalsIgnoreCase(lstProductosDePedido.getSelectedValue())){
                     this.sistema.getListaProdcutosSeleccionados().remove(i);
-                    this.generarListaProductos();
                 }
             }
+            this.generarListaProductos();
             this.mostrarTotal();
         }
     }//GEN-LAST:event_btnEliminarItemActionPerformed
@@ -414,10 +414,9 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 
     private void btnReiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarPedidoActionPerformed
-        //this.sistema.setListaProdcutosSeleccionados(new ArrayList<Producto>());
-        System.out.print(this.sistema.getListaProdcutosSeleccionados().size());
-        for(int i=0; i<4;i++){
-            this.sistema.getListaProdcutosSeleccionados().remove(i);
+        Iterator<Producto> it=this.sistema.getListaProdcutosSeleccionados().iterator();
+        while(it.hasNext()){
+            this.sistema.getListaProdcutosSeleccionados().remove(0);
         }
         tfdObservaciones.removeAll();
         this.sistema.setClienteSeleccionado(new Cliente("","",""));
