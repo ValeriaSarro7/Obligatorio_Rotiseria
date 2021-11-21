@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
+import dominio.Categoria;
 import dominio.Producto;
 import dominio.Sistema;
 import java.util.ArrayList;
@@ -51,7 +48,7 @@ public class VentanaProducto extends javax.swing.JFrame {
     }
     
     public void listarCategorias(){
-        lstCategoriasProducto.setListData(this.sistema.arrayCategorias());
+        lstCategoriasProducto.setListData(this.sistema.getListaCategorias().toArray());
     }
     
     @SuppressWarnings("unchecked")
@@ -70,7 +67,7 @@ public class VentanaProducto extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         lblCategoriasProducto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstCategoriasProducto = new javax.swing.JList<>();
+        lstCategoriasProducto = new javax.swing.JList();
         jPanel6 = new javax.swing.JPanel();
         btnCancelarProducto = new javax.swing.JButton();
         btnAgregarProducto = new javax.swing.JButton();
@@ -82,7 +79,7 @@ public class VentanaProducto extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
         jPanel2.setOpaque(false);
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         lblIngresoProducto.setBackground(new java.awt.Color(204, 204, 204));
         lblIngresoProducto.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -261,13 +258,11 @@ public class VentanaProducto extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto()){
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
-            ArrayList categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedValuesList(),unProducto);
+            ArrayList <Categoria> categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedIndices(),unProducto);
             this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
-            showMessageDialog(null,"Producto agregado con exito","Producto agregado", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null,"¡Producto agregado con éxito!","¡Producto agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else if (!noExisteProducto()){
-            showMessageDialog(null, "Ya existe el producto!\n Ingrese otro nombre o cancele la operacion", "Producto existe", JOptionPane.PLAIN_MESSAGE);
-        }
         
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
@@ -285,7 +280,7 @@ public class VentanaProducto extends javax.swing.JFrame {
     private javax.swing.JLabel lblIngresoProducto;
     private javax.swing.JLabel lblNombreProducto;
     private javax.swing.JLabel lblPrecioProducto;
-    private javax.swing.JList<String> lstCategoriasProducto;
+    private javax.swing.JList lstCategoriasProducto;
     private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtPrecioProducto;
     // End of variables declaration//GEN-END:variables

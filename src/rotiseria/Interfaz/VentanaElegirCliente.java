@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
 import dominio.Cliente;
@@ -10,6 +6,7 @@ import dominio.Sistema;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -26,11 +23,11 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
         this.sistema=sistema;
-        setLista(sistema.obtenerNombresClientes());
+        setLista(this.sistema.getListaClientes());
     } 
     
-    private void setLista (String[] lista){
-        lstClientesECliente.setListData(lista);
+    private void setLista (ArrayList <Cliente> lista){
+        lstClientesECliente.setListData(lista.toArray());
     }
 
     @SuppressWarnings("unchecked")
@@ -43,7 +40,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
         lblBuscarClienteECliente = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        lstClientesECliente = new javax.swing.JList<>();
+        lstClientesECliente = new javax.swing.JList();
         jPanel5 = new javax.swing.JPanel();
         txtClienteECliente = new javax.swing.JTextField();
         btnBuscarECliente = new javax.swing.JButton();
@@ -217,13 +214,13 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private void btnResetearEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetearEClienteActionPerformed
         txtClienteECliente.setText("");
-        setLista(sistema.obtenerNombresClientes());
+        setLista(this.sistema.getListaClientes());
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
         String valor=(String)lstClientesECliente.getSelectedValue();
         this.sistema.setClienteSeleccionado(this.sistema.darCliente(valor));
-        showMessageDialog(null,"Cliente seleccionado con exito","Seleccionado", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(null,"¡Cliente seleccionado con éxito´!","¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
 
@@ -247,7 +244,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscarClienteECliente;
-    private javax.swing.JList<String> lstClientesECliente;
+    private javax.swing.JList lstClientesECliente;
     private javax.swing.JTextField txtClienteECliente;
     // End of variables declaration//GEN-END:variables
 }

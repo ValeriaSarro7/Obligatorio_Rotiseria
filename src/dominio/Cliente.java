@@ -1,4 +1,4 @@
-
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package dominio;
 
 import java.io.*;
@@ -37,10 +37,6 @@ public class Cliente implements Serializable {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-    
-    public boolean validarCliente(){
-        return true;
     }
     
     @Override

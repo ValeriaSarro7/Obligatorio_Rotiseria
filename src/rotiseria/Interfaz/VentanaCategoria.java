@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
 import dominio.Categoria;
@@ -32,7 +28,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
         boolean esValido=true;
         esValido = !(sistema.existeCategoria(txtNombreCategoria.getText()));
         if (!esValido) {
-            showMessageDialog(null, "Ya existe la categoria!\n Ingrese otro nombre o cancele la operacion", "Categoria existe", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ya existe la categoría!\n Ingrese otro nombre o cancele la operación.", "¡Categoria existe!", JOptionPane.PLAIN_MESSAGE);
         }
         return esValido;
     }
@@ -240,7 +236,7 @@ public class VentanaCategoria extends javax.swing.JFrame {
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
         if(categoriaValida()){
             this.sistema.agregarCategoriaALista(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex() , txtDetallesProducto.getText()));
-            showMessageDialog(null,"Categoria agregada con éxito","Agregado", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null,"¡Categoría agregada con éxito!","¡Agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }
         

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
 import dominio.Cliente;
@@ -29,7 +25,7 @@ public class VentanaCliente extends javax.swing.JFrame {
             Integer.parseInt(txtTelefonoCliente.getText());
             esNumerico = true;
         } catch (NumberFormatException e) {
-            JOptionPane.showConfirmDialog(null, "El teléfono solo puede contener números", "Texto ingresado", JOptionPane.CANCEL_OPTION);
+            JOptionPane.showConfirmDialog(null, "¡El teléfono solo puede contener números!", "¡Texto ingresado!", JOptionPane.CANCEL_OPTION);
         }
         return esNumerico;
     }
@@ -38,7 +34,7 @@ public class VentanaCliente extends javax.swing.JFrame {
         boolean ingresoNombre = true;
         if(txtNombreCliente.getText() == null || txtNombreCliente.getText().equals("") || txtNombreCliente.getText().trim().equals("")){
             ingresoNombre = false;
-            showMessageDialog(null, "Ingrese un nombre", "", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ingrese un nombre!", "Campo Nombre", JOptionPane.PLAIN_MESSAGE);
         }
         return ingresoNombre;
     }
@@ -47,7 +43,7 @@ public class VentanaCliente extends javax.swing.JFrame {
      boolean ingresoDireccion = true;
         if(txtDireccionCliente.getText() == null || txtDireccionCliente.getText().equals("") || txtDireccionCliente.getText().trim().equals("")){
             ingresoDireccion = false;
-            showMessageDialog(null, "Ingrese una dirección", "", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ingrese una dirección!", "Campo Dirección", JOptionPane.PLAIN_MESSAGE);
         }
         return ingresoDireccion;
     }
@@ -246,10 +242,10 @@ public class VentanaCliente extends javax.swing.JFrame {
         boolean existeCliente = this.sistema.existeCliente(txtNombreCliente.getText());
         if (!existeCliente && this.telefonoNumerico() && this.ingresaNombre() && this.ingresaDireccion()) {
             this.sistema.agregarClientesALista(new Cliente(txtNombreCliente.getText(), txtDireccionCliente.getText(), txtTelefonoCliente.getText()));
-            showMessageDialog(null, "Cliente agregado con exito", "Agregado", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Cliente agregado con éxito!", "¡Agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         } else if (existeCliente) {
-            showMessageDialog(null, "Ya existe el cliente!\n Ingrese otro nombre o cancele la operacion", "Cliente existe", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Ya existe el cliente!\n Ingrese otro nombre o cancele la operación.", "¡Cliente existe!", JOptionPane.PLAIN_MESSAGE);
         }
 
     }//GEN-LAST:event_btnAgregarClienteActionPerformed

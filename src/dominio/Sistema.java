@@ -1,3 +1,4 @@
+//Agustina Chaparro 194551 Valeria Sarro 229531
 package dominio;
 
 import java.beans.PropertyChangeListener;
@@ -56,8 +57,6 @@ public class Sistema implements Serializable {
         this.listaProdcutosSeleccionados = listaProdcutosSeleccionados;
     }
     
-    
-    
     public void agregarListenerpCS1(PropertyChangeListener listener){
        pCS1.addPropertyChangeListener(listener);
     }
@@ -68,6 +67,10 @@ public class Sistema implements Serializable {
 
     public void agregarClientesALista(Cliente cliente) {
         this.getListaClientes().add(cliente);
+    }
+    
+    public void agregarPedidoALista(Pedido unP){
+        this.getListaPedidos().add(unP);
     }
 
     public Cliente darCliente(String nombre) {
@@ -106,7 +109,7 @@ public class Sistema implements Serializable {
         return listaProductos;
     }
 
-    public void agregarProductoaLista(Producto unProducto, ArrayList categoriasProducto) {
+    public void agregarProductoaLista(Producto unProducto, ArrayList <Categoria> categoriasProducto) {
         this.getListaProductos().add(unProducto);
         unProducto.setListaCategorias(categoriasProducto);
         pCS1.firePropertyChange("valor", "previo", "nuevo");
@@ -143,25 +146,15 @@ public class Sistema implements Serializable {
         }
         return existe;
     }
-    
-    public String[] obtenerNombresClientes(){
-        String[] array= new String[this.getListaClientes().size()];
-        int cont=0;
-        for(Cliente unCliente: this.getListaClientes()){
-            array[cont]=unCliente.getNombre();
-            cont++;
-        }
-        return array;
-    }
 
-    public String[] filtrarLista(String filtro) {
-        String lis = "";
+    public ArrayList<Cliente> filtrarLista(String filtro) {
+        ArrayList<Cliente> lis = new ArrayList<Cliente>();
         for (int i = 0; i < this.getListaClientes().size(); i++) {
             if (this.getListaClientes().get(i).getNombre().toUpperCase().contains(filtro.toUpperCase())) {
-                lis += this.getListaClientes().get(i).getNombre() + ";";
+                lis.add(this.getListaClientes().get(i));
             }
         }
-        return lis.split(";");
+        return lis;
     }
     
     public Pedido encontrarPedido(int numero){
@@ -177,54 +170,11 @@ public class Sistema implements Serializable {
         return unP;
     }
     
-    public String[] arrayPedidos(ArrayList<Pedido> listaPedidos){
-        String[] lista=new String[listaPedidos.size()];
-        int cont=0;
-        Iterator<Pedido> it=listaPedidos.iterator();
-        while(it.hasNext()){
-            Pedido unP=it.next();
-            lista[cont]=unP.toString();
-            cont++;
-        }
-        return lista;
-    }
-    
-    public String[] arrayProductos(ArrayList<Producto> listaProductos){
-        String[] lista=new String[listaProductos.size()];
-        int cont=0;
-        Iterator<Producto> it=listaProductos.iterator();
-        while(it.hasNext()){
-            Producto unP=it.next();
-            lista[cont]=unP.toString();
-            cont++;
-        }
-        return lista;
-    }
-    public String[] arrayCategorias(){
-        String[] lista=new String[getListaCategorias().size()];
-        int cont=0;
-        Iterator<Categoria> it=getListaCategorias().iterator();
-        while(it.hasNext()){
-            Categoria unaC=it.next();
-            lista[cont]=unaC.toString();
-            cont++;
-        }
-        return lista;
-    }
-    public ArrayList agregarCategoriasProducto(List <String> categorias, Producto unProducto){
+    public ArrayList <Categoria> agregarCategoriasProducto(int [] categorias, Producto unProducto){
         ArrayList categoriasProducto= new ArrayList <Categoria> ();
-        for(int i=0; i<categorias.size(); i++){
-            Iterator<Categoria> it=getListaCategorias().iterator();
-            Categoria unaC = null;
-            boolean encontre=false;
-            while(it.hasNext()&&!encontre){
-                unaC=it.next();
-                if(unaC.getNombre().equalsIgnoreCase(categorias.get(i))){
-                    encontre=true;
-                    categoriasProducto.add(unaC);
-                }
-                    
-            }
+        for(int i=0; i<categorias.length; i++){
+            Categoria unaC=getListaCategorias().get(categorias[i]);
+            categoriasProducto.add(unaC);
         }
         return categoriasProducto;
     }
