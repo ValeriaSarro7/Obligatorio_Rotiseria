@@ -27,10 +27,27 @@ public class VentanaProducto extends javax.swing.JFrame {
         this.sistema=sistema;
         listarCategorias();
     }
-    public boolean productoValido(){
+    public boolean noExisteProducto(){
         boolean esValido=true;
         esValido = !(this.sistema.existeProducto(txtNombreProducto.getText()));
         return esValido;
+    }
+    
+    public boolean ingresaNombreProducto(){
+        boolean ingresoNombreProd = true;
+        if(txtNombreProducto.getText() == null || txtNombreProducto.getText().equals("") || txtNombreProducto.getText().trim().equals("")){
+            ingresoNombreProd = false;
+            showMessageDialog(null, "Ingrese el nombre del producto", "", JOptionPane.PLAIN_MESSAGE);
+        }
+        return ingresoNombreProd;
+    }
+    public boolean ingresaPrecioProducto(){
+        boolean ingresoPrecio = true;
+        if(txtPrecioProducto.getText() == null || txtPrecioProducto.getText().equals("") || txtPrecioProducto.getText().trim().equals("")){
+            ingresoPrecio = false;
+            showMessageDialog(null, "Ingrese un precio", "", JOptionPane.PLAIN_MESSAGE);
+        }
+        return ingresoPrecio;
     }
     
     public void listarCategorias(){
@@ -242,13 +259,13 @@ public class VentanaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        if(productoValido()){
+        if(noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto()){
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
             ArrayList categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedValuesList(),unProducto);
             this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
             showMessageDialog(null,"Producto agregado con exito","Producto agregado", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
-        }else{
+        }else if (!noExisteProducto()){
             showMessageDialog(null, "Ya existe el producto!\n Ingrese otro nombre o cancele la operacion", "Producto existe", JOptionPane.PLAIN_MESSAGE);
         }
         
