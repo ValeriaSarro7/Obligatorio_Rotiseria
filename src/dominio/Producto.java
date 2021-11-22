@@ -1,9 +1,10 @@
 //Agustina Chaparro 194551 Valeria Sarro 229531
 package dominio;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Producto {
+public class Producto implements Serializable{
     private ArrayList<Categoria> listaCategorias;
     private String nombre;
     private int precio;

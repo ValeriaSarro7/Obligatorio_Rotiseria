@@ -37,10 +37,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         initComponents();
         this.sistema = unSistema;
         this.sistema.agregarListenerpCS1(this);
-        this.cerrarVentana();
+        this.addListenerCerrarVentana();
     }
 
-    public void cerrarVentana() {
+    public void addListenerCerrarVentana() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -48,20 +48,26 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 FileOutputStream archivo = null;
                 while (!guardado) {
                     try {
-                        archivo = new FileOutputStream("salida.txt");
+                         guardado=true;
+                        archivo = new FileOutputStream("salida");
+                        ObjectOutputStream out=new ObjectOutputStream(archivo);
+                        out.writeObject(sistema);
+                        out.close();
+                        showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit (0);
+                        archivo.close();
+                        /* archivo = new FileOutputStream("salida.txt");
                         ObjectOutputStream out = new ObjectOutputStream(archivo);
-                        out.writeObject(sistema.getListaClientes());
-                        out.writeObject(sistema.getListaCategorias());
-                        out.writeObject(sistema.getListaPedidos());
-                        out.writeObject(sistema.getListaProductos());
+                        out.writeObject(sistema);
                         out.close();
                         guardado = true;
                         showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
-                        archivo.close();
+                        archivo.close();*/
                     } catch (IOException ex) {
-                        System.out.println("Error de archivo");
-                        System.exit(1);
+                        ex.printStackTrace();
+                        /* System.out.println("Error de archivo");
+                        System.exit(1);*/
                     }
                 }
             }

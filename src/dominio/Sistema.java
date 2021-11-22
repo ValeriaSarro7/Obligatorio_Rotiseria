@@ -8,14 +8,13 @@ import java.util.*;
 
 public class Sistema implements Serializable {
 
-    // por que lista cliente tiene que ser un hashmap? 
     private ArrayList<Cliente> listaClientes;
     private ArrayList<Categoria> listaCategorias;
     private ArrayList<Pedido> listaPedidos;
     private ArrayList<Producto> listaProductos;
     private Cliente clienteSeleccionado;
     private ArrayList<Producto> listaProdcutosSeleccionados;
-    private PropertyChangeSupport pCS1;
+    private transient PropertyChangeSupport pCS1;
 
 
     public Sistema() {
@@ -25,7 +24,7 @@ public class Sistema implements Serializable {
         listaProductos = new ArrayList<Producto>();
         listaProdcutosSeleccionados = new ArrayList<Producto>();
         clienteSeleccionado = new Cliente("","","");
-        this.pCS1=new PropertyChangeSupport(this);
+        pCS1 = new PropertyChangeSupport(this);
     }
     public Cliente getClienteSeleccionado(){
         return this.clienteSeleccionado;
@@ -198,5 +197,10 @@ public class Sistema implements Serializable {
             total+=unP.getPrecio();
         }
         return total;
+    }
+    
+    private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException{
+    inputStream.defaultReadObject();
+    pCS1 = new PropertyChangeSupport(this);
     }
 }
