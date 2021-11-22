@@ -3,12 +3,7 @@ package rotiseria.Interfaz;
 
 import dominio.Cliente;
 import dominio.Sistema;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import java.io.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
@@ -218,9 +213,9 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
-        String valor=(String)lstClientesECliente.getSelectedValue();
-        this.sistema.setClienteSeleccionado(this.sistema.darCliente(valor));
-        showMessageDialog(null,"¡Cliente seleccionado con éxito´!","¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
+        Cliente valor=(Cliente)lstClientesECliente.getSelectedValue();
+        this.sistema.setClienteSeleccionado(valor);
+        showMessageDialog(null,"¡Cliente seleccionado con éxito!","¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
 

@@ -21,6 +21,9 @@ import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 import utils.OrdenAlfabetico;
 import utils.OrdenPrioridad;
+import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,8 +43,21 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         addWindowListener (new WindowAdapter (){
             @Override
             public void windowClosing (WindowEvent  e){
-                showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
-                System.exit (0);
+                boolean guardado=false;
+                FileOutputStream archivo= null;
+                while(!guardado){
+                    try {
+                        guardado=true;
+                        archivo = new FileOutputStream("salida");
+                        ObjectOutputStream out=new ObjectOutputStream(archivo);
+                        out.writeObject(sistema);
+                        out.close();
+                        showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit (0);
+                        archivo.close();
+                    }catch (IOException ex){                    
+                    }
+                }                
             }
          });
     }
