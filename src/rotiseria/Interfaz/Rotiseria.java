@@ -49,7 +49,9 @@ public class Rotiseria {
                         case 2:
                             Producto prod = new Producto(line[0], Integer.parseInt(line[1]));
                             ArrayList<Categoria> categorias = new ArrayList<Categoria>();
-                            categorias.add(sistema.darCategoria(line[2]));
+                            for (int i = 2; i < line.length; i++) {
+                                categorias.add(sistema.darCategoria(line[i]));
+                            }
                             sistema.agregarProductoaLista(prod, categorias);
                             break;
                     }
