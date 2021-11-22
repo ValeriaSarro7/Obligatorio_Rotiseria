@@ -14,14 +14,14 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;
-    
+
     public VentanaElegirCliente(Sistema sistema) {
         initComponents();
-        this.sistema=sistema;
+        this.sistema = sistema;
         setLista(this.sistema.getListaClientes());
-    } 
-    
-    private void setLista (ArrayList <Cliente> lista){
+    }
+
+    private void setLista(ArrayList<Cliente> lista) {
         lstClientesECliente.setListData(lista.toArray());
     }
 
@@ -203,7 +203,7 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarEClienteActionPerformed
-        String clave= txtClienteECliente.getText();
+        String clave = txtClienteECliente.getText();
         setLista(this.sistema.filtrarLista(clave));
     }//GEN-LAST:event_btnBuscarEClienteActionPerformed
 
@@ -213,18 +213,18 @@ public class VentanaElegirCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetearEClienteActionPerformed
 
     private void btnSeleccionarEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionarEClienteActionPerformed
-        Cliente valor=(Cliente)lstClientesECliente.getSelectedValue();
+        Cliente valor = (Cliente) lstClientesECliente.getSelectedValue();
         this.sistema.setClienteSeleccionado(valor);
-        showMessageDialog(null,"¡Cliente seleccionado con éxito!","¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
+        showMessageDialog(null, "¡Cliente seleccionado con éxito!", "¡Seleccionado!", JOptionPane.PLAIN_MESSAGE);
         this.dispose();
     }//GEN-LAST:event_btnSeleccionarEClienteActionPerformed
 
     private void txtClienteEClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClienteEClienteActionPerformed
-        
+
     }//GEN-LAST:event_txtClienteEClienteActionPerformed
 
     private void lstClientesEClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstClientesEClienteValueChanged
-     
+
     }//GEN-LAST:event_lstClientesEClienteValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

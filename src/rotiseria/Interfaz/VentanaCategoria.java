@@ -18,19 +18,10 @@ public class VentanaCategoria extends javax.swing.JFrame {
      * Creates new form VentanaProducto
      */
     private Sistema sistema;
-    
+
     public VentanaCategoria(Sistema unSistema) {
         initComponents();
-        this.sistema= unSistema;
-    }
-    
-    public boolean categoriaValida(){
-        boolean esValido=true;
-        esValido = !(sistema.existeCategoria(txtNombreCategoria.getText()));
-        if (!esValido) {
-            showMessageDialog(null, "¡Ya existe la categoría!\n Ingrese otro nombre o cancele la operación.", "¡Categoria existe!", JOptionPane.PLAIN_MESSAGE);
-        }
-        return esValido;
+        this.sistema = unSistema;
     }
 
     @SuppressWarnings("unchecked")
@@ -233,14 +224,26 @@ public class VentanaCategoria extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
-    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        if(categoriaValida()){
-            this.sistema.agregarCategoriaALista(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex() , txtDetallesProducto.getText()));
-            showMessageDialog(null,"¡Categoría agregada con éxito!","¡Agregado!", JOptionPane.PLAIN_MESSAGE);
-            this.dispose();
+    public boolean campoVacio(String textoIngresado, String textoAMostrar) {
+        boolean estaVacio = false;
+        if (textoIngresado == null || textoIngresado.equals("") || textoIngresado.trim().equals("")) {
+            estaVacio = true;
+            showMessageDialog(null, textoAMostrar, "Ingreso inválido", JOptionPane.PLAIN_MESSAGE);
         }
-        
-        
+        return estaVacio;
+    }
+    private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
+        boolean existeCategoria = sistema.existeCategoria(txtNombreCategoria.getText());
+        boolean camposCompletos = (!this.campoVacio(txtNombreCategoria.getText(), "¡Ingrese un nombre!"));
+        if (!existeCategoria && camposCompletos) {
+            this.sistema.agregarCategoriaALista(new Categoria(txtNombreCategoria.getText(), cbxPrioridadProducto.getSelectedIndex(), txtDetallesProducto.getText()));
+            showMessageDialog(null, "¡Categoría agregada con éxito!", "¡Agregado!", JOptionPane.PLAIN_MESSAGE);
+            this.dispose();
+        } else if (existeCategoria) {
+            showMessageDialog(null, "¡Ya existe la categoría!\n Ingrese otro nombre o cancele la operación.", "¡Categoría existente!", JOptionPane.PLAIN_MESSAGE);
+
+        }
+
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     private void txtNombreCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreCategoriaActionPerformed

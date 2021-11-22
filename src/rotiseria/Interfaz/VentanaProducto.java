@@ -38,6 +38,17 @@ public class VentanaProducto extends javax.swing.JFrame {
         }
         return ingresoNombreProd;
     }
+    
+    public boolean precioNumerico() {
+        boolean esNumerico = false;
+        try {
+            Integer.parseInt(txtPrecioProducto.getText());
+            esNumerico = true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showConfirmDialog(null, "¡El precio solo puede contener números!", "¡Texto ingresado!", JOptionPane.CANCEL_OPTION);
+        }
+        return esNumerico;
+    }
     public boolean ingresaPrecioProducto(){
         boolean ingresoPrecio = true;
         if(txtPrecioProducto.getText() == null || txtPrecioProducto.getText().equals("") || txtPrecioProducto.getText().trim().equals("")){
@@ -256,14 +267,15 @@ public class VentanaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        if(noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto()){
+        if(noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto() && precioNumerico()){
             Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
             ArrayList <Categoria> categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedIndices(),unProducto);
             this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
             showMessageDialog(null,"¡Producto agregado con éxito!","¡Producto agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
         }else if (!noExisteProducto()){
-        
+            showMessageDialog(null, "¡Ya existe el producto!\n Ingrese otro nombre o cancele la operación.", "¡Producto existe!", JOptionPane.PLAIN_MESSAGE);
+        }
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

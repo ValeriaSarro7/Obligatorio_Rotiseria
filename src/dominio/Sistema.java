@@ -199,5 +199,4 @@ public class Sistema implements Serializable {
         }
         return total;
     }
-
 }

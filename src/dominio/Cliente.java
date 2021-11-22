@@ -41,7 +41,7 @@ public class Cliente implements Serializable {
     
     @Override
     public String toString(){
-        return this.getNombre()+ "("+this.getDireccion()+" - " + this.getTelefono()+")";
+        return this.getNombre()+ " ("+this.getDireccion()+" - " + this.getTelefono()+")";
     }
     
 }

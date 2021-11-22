@@ -2,6 +2,7 @@
 package rotiseria.Interfaz;
 
 import dominio.Pedido;
+import dominio.Producto;
 import dominio.Sistema;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,13 +19,13 @@ public class VentanaPedido extends javax.swing.JFrame {
      * Creates new form VentanaPedido
      */
     private Sistema sistema;
-    
+
     public VentanaPedido(Sistema sistema) {
         initComponents();
-        this.sistema=sistema;
+        this.sistema = sistema;
         lstPedidosPedido.setListData(this.sistema.getListaPedidos().toArray());
-    }    
-    
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -145,7 +146,7 @@ public class VentanaPedido extends javax.swing.JFrame {
 
         lstProductoPedido.setBackground(new java.awt.Color(204, 255, 204));
         lstProductoPedido.setForeground(new java.awt.Color(0, 0, 0));
-        lstProductoPedido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        lstProductoPedido.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         jScrollPane2.setViewportView(lstProductoPedido);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -155,8 +156,8 @@ public class VentanaPedido extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblProductoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                    .addComponent(lblProductoPedido, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -265,16 +266,18 @@ public class VentanaPedido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setLista(ArrayList<Producto> lista) {
+        lstProductoPedido.setListData(lista.toArray());
+    }
     private void lstPedidosPedidoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstPedidosPedidoValueChanged
-        Pedido eleccion= (Pedido)lstPedidosPedido.getSelectedValue();
-        int numero= eleccion.getNumero();
-        lstProductoPedido.setListData((eleccion.getListaProdcutos()).toArray());
+        Pedido eleccion = (Pedido) lstPedidosPedido.getSelectedValue();
+        int numero = eleccion.getNumero();
+        setLista(eleccion.getListaProdcutos());
+        // lstProductoPedido.setListData(eleccion.getListaProdcutos().toArray());
         lblNumero.setText(String.valueOf(eleccion.getNumero()));
         lblClientePedidoSeleccionado.setText(eleccion.getUnCliente().getNombre());
-        lblPrecioPedidoSeleccionado.setText("$"+Integer.toString(eleccion.getPrecioTotal()));
+        lblPrecioPedidoSeleccionado.setText("$" + Integer.toString(eleccion.getPrecioTotal()));
         jArDatosPedidos.setText("Observaciones: " + eleccion.getObservaciones());
-        
-        
     }//GEN-LAST:event_lstPedidosPedidoValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

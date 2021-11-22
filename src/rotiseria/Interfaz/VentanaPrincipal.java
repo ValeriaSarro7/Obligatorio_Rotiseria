@@ -39,62 +39,71 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
         this.sistema.agregarListenerpCS1(this);
         this.cerrarVentana();
     }
-    public void cerrarVentana(){
-        addWindowListener (new WindowAdapter (){
+
+    public void cerrarVentana() {
+        addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing (WindowEvent  e){
-                boolean guardado=false;
-                FileOutputStream archivo= null;
-                while(!guardado){
+            public void windowClosing(WindowEvent e) {
+                boolean guardado = false;
+                FileOutputStream archivo = null;
+                while (!guardado) {
                     try {
-                        guardado=true;
-                        archivo = new FileOutputStream("salida");
-                        ObjectOutputStream out=new ObjectOutputStream(archivo);
-                        out.writeObject(sistema);
+                        archivo = new FileOutputStream("salida.txt");
+                        ObjectOutputStream out = new ObjectOutputStream(archivo);
+                        out.writeObject(sistema.getListaClientes());
+                        out.writeObject(sistema.getListaCategorias());
+                        out.writeObject(sistema.getListaPedidos());
+                        out.writeObject(sistema.getListaProductos());
                         out.close();
+                        guardado = true;
                         showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
-                        System.exit (0);
+                        System.exit(0);
                         archivo.close();
-                    }catch (IOException ex){                    
+                    } catch (IOException ex) {
+                        System.out.println("Error de archivo");
+                        System.exit(1);
                     }
-                }                
+                }
             }
-         });
+        });
     }
 
     public void clienteElegido(Cliente unCliente) {
         lblDatosCliente.setText(unCliente.toString());
     }
-    public void cargarCombo(){
-        if(!this.sistema.getListaCategorias().isEmpty()){
+
+    public void cargarCombo() {
+        if (!this.sistema.getListaCategorias().isEmpty()) {
             cmbCategoria.removeAllItems();
-            if(rbtnPrioridad.isSelected()){
-                Collections.sort(this.sistema.getListaCategorias(),new OrdenPrioridad());
-            }else{
-                Collections.sort(this.sistema.getListaCategorias(),new OrdenAlfabetico());
+            if (rbtnPrioridad.isSelected()) {
+                Collections.sort(this.sistema.getListaCategorias(), new OrdenPrioridad());
+            } else {
+                Collections.sort(this.sistema.getListaCategorias(), new OrdenAlfabetico());
             }
-            for(int i=0; i<this.sistema.getListaCategorias().size(); i++){
+            for (int i = 0; i < this.sistema.getListaCategorias().size(); i++) {
                 cmbCategoria.addItem(this.sistema.getListaCategorias().get(i).toString());
             }
         }
     }
-    public void setCliente(){
+
+    public void setCliente() {
         lblDatosCliente.setText("");
-        if(!this.sistema.getClienteSeleccionado().getNombre().equals("")){
+        if (!this.sistema.getClienteSeleccionado().getNombre().equals("")) {
             lblDatosCliente.setText(this.sistema.getClienteSeleccionado().toString());
         }
     }
-    public void agregarBotones(String categoria){
-        if(!this.sistema.getListaProductos().isEmpty()){
+
+    public void agregarBotones(String categoria) {
+        if (!this.sistema.getListaProductos().isEmpty()) {
             pnlProductos.removeAll();
-            for(int i=0; i<this.sistema.getListaProductos().size(); i++){
-                for(Categoria unaCategoria:this.sistema.getListaProductos().get(i).getListaCategorias()){
-                    if(unaCategoria.getNombre().equalsIgnoreCase(categoria)){
+            for (int i = 0; i < this.sistema.getListaProductos().size(); i++) {
+                for (Categoria unaCategoria : this.sistema.getListaProductos().get(i).getListaCategorias()) {
+                    if (unaCategoria.getNombre().equalsIgnoreCase(categoria)) {
                         JButton nuevo = new JButton(" ");
                         nuevo.setMargin(new Insets(-5, -5, -5, -5));
                         nuevo.setBackground(Color.BLACK);
                         nuevo.setForeground(Color.WHITE);
-                        nuevo.setText( this.sistema.getListaProductos().get(i).getNombre()+"- $"+ this.sistema.getListaProductos().get(i).getPrecio()); 
+                        nuevo.setText(this.sistema.getListaProductos().get(i).getNombre() + "- $" + this.sistema.getListaProductos().get(i).getPrecio());
                         nuevo.addActionListener(new ProductoListener(this.sistema));
                         pnlProductos.add(nuevo);
                     }
@@ -102,45 +111,46 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
             }
         }
     }
-    
+
     public class ProductoListener implements ActionListener {
-        
+
         private Sistema sistema;
-        
-        public ProductoListener(Sistema sistema){
-            this.sistema=sistema;
+
+        public ProductoListener(Sistema sistema) {
+            this.sistema = sistema;
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             JButton cual = ((JButton) e.getSource());
             this.sistema.agregarAListaProductosSeleccionados(this.sistema.darProducto(cual.getText().split("-")[0]));
         }
-    }    
-    
-    public void mostrarTotal(){
+    }
+
+    public void mostrarTotal() {
         lblCostoTotal.setText("$ " + String.valueOf((this.sistema.precioPedidoEnCurso())));
     }
-    
-    public void generarListaProductos(){
-        String [] vacio =new String [0];
+
+    public void generarListaProductos() {
+        String[] vacio = new String[0];
         lstProductosDePedido.setListData(vacio);
-        if(!this.sistema.getListaProdcutosSeleccionados().isEmpty()){
+        if (!this.sistema.getListaProdcutosSeleccionados().isEmpty()) {
             lstProductosDePedido.setListData(sistema.getListaProdcutosSeleccionados().toArray());
         }
-        
+
     }
-    private void resetearPedido(){
-        Iterator<Producto> it=this.sistema.getListaProdcutosSeleccionados().iterator();
-        while(it.hasNext()){
+
+    private void resetearPedido() {
+        Iterator<Producto> it = this.sistema.getListaProdcutosSeleccionados().iterator();
+        while (it.hasNext()) {
             this.sistema.getListaProdcutosSeleccionados().remove(0);
         }
         tfdObservaciones.setText("");
-        this.sistema.setClienteSeleccionado(new Cliente("","",""));
+        this.sistema.setClienteSeleccionado(new Cliente("", "", ""));
         this.cargarCombo();
         this.setCliente();
         this.mostrarTotal();
-        this.generarListaProductos(); 
+        this.generarListaProductos();
     }
 
     @SuppressWarnings("unchecked")
@@ -395,14 +405,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        VentanaProducto agregarProducto = new VentanaProducto(sistema);
-        agregarProducto.setVisible(true);
+        if (this.sistema.getListaCategorias().isEmpty()) {
+            showMessageDialog(null, "¡No hay categorías cargadas! Ingrese una categoría y vuelva a intentar", "Ingrese categorías", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            VentanaProducto agregarProducto = new VentanaProducto(sistema);
+            agregarProducto.setVisible(true);
+        }
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPedidosActionPerformed
-        if(this.sistema.getListaPedidos().isEmpty()){
+        if (this.sistema.getListaPedidos().isEmpty()) {
             showMessageDialog(null, "¡Primero debe ingresar un pedido!", "¡Ingrese Pedido!", JOptionPane.INFORMATION_MESSAGE);
-        }else{
+        } else {
             VentanaPedido verPedido = new VentanaPedido(sistema);
             verPedido.setVisible(true);
         }
@@ -414,27 +428,25 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_elegirClienteActionPerformed
 
     private void btnGrabarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGrabarPedidoActionPerformed
-        
-        Cliente unC=this.sistema.getClienteSeleccionado();
-        ArrayList <Producto> lstP=this.sistema.getListaProdcutosSeleccionados();
-        if(unC.getNombre().equalsIgnoreCase("")){
+
+        Cliente unC = this.sistema.getClienteSeleccionado();
+        ArrayList<Producto> lstP = this.sistema.getListaProdcutosSeleccionados();
+        if (unC.getNombre().equalsIgnoreCase("")) {
             showMessageDialog(null, "¡Primero debe elegir un Cliente!", "¡Problema!", JOptionPane.INFORMATION_MESSAGE);
-        }else if(lstP.size()==0){
+        } else if (lstP.size() == 0) {
             showMessageDialog(null, "¡Primero debe elegir por lo menos un producto!", "¡Problema!", JOptionPane.INFORMATION_MESSAGE);
-        }else{
-            String obs=tfdObservaciones.getText();
-            int num= this.sistema.getListaPedidos().size()+1;
-            int precioT= this.sistema.precioPedidoEnCurso();
-            this.sistema.agregarPedidoALista(new Pedido(num, unC,precioT,obs, lstP));
+        } else {
+            String obs = tfdObservaciones.getText();
+            int num = this.sistema.getListaPedidos().size() + 1;
+            int precioT = this.sistema.precioPedidoEnCurso();
+            this.sistema.agregarPedidoALista(new Pedido(num, unC, precioT, obs, lstP));
             showMessageDialog(null, "Pedido agregado con éxito!", "¡ÉXITO!", JOptionPane.PLAIN_MESSAGE);
         }
         resetearPedido();
     }//GEN-LAST:event_btnGrabarPedidoActionPerformed
 
     private void btnEliminarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarItemActionPerformed
-        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar pedido?", "¡Eliminar Pedido!", JOptionPane.OK_CANCEL_OPTION);
-        //0 es OK
-        //2 es Cancel
+        int respuesta = JOptionPane.showConfirmDialog(null, "¿Está seguro que desea remover el producto?", "¡Remover Producto!", JOptionPane.OK_CANCEL_OPTION);
         if (respuesta == 0) {
             this.sistema.getListaProdcutosSeleccionados().remove(lstProductosDePedido.getSelectedIndex());
             this.generarListaProductos();
@@ -447,10 +459,10 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
     }//GEN-LAST:event_rbtnAlfabeticoActionPerformed
 
     private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
-        if(cmbCategoria.getSelectedItem()!= null){
-            String contenido=cmbCategoria.getSelectedItem().toString().split("-")[0];
+        if (cmbCategoria.getSelectedItem() != null) {
+            String contenido = cmbCategoria.getSelectedItem().toString().split("-")[0];
             this.agregarBotones(contenido);
-        } 
+        }
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 
     private void btnReiniciarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarPedidoActionPerformed
