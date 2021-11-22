@@ -30,9 +30,10 @@ public class Rotiseria {
         } else if (respuesta == 2) {
             ArchivoLectura archivoEntrada = new ArchivoLectura("entrada.csv");
             Sistema sistema = new Sistema();
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(sistema);
+            int tipoDeObjetoACrear = -1; // 0 es clientes, 1 es categorias, 2 es productos
             while (archivoEntrada.hayMasLineas()) {
                 String[] line = archivoEntrada.linea().split(";");
-                int tipoDeObjetoACrear = -1; // 0 es clientes, 1 es categorias, 2 es productos
                 if (line.length == 1) {
                     tipoDeObjetoACrear++;
                 } else {
@@ -42,7 +43,7 @@ public class Rotiseria {
                             sistema.agregarClientesALista(cli);
                             break;
                         case 1:
-                            Categoria cat = new Categoria(line[0], Integer.parseInt(line[1]), line[2]);
+                            Categoria cat = new Categoria(line[0], Integer.parseInt(line[2]), line[1]);
                             sistema.agregarCategoriaALista(cat);
                             break;
                         case 2:
@@ -54,7 +55,6 @@ public class Rotiseria {
                     }
                 }
             }
-            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(sistema);
             ventanaPrincipal.setVisible(true);
         }
     }
