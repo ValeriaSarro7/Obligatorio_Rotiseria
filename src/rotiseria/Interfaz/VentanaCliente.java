@@ -245,11 +245,7 @@ public class VentanaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarClienteActionPerformed
 
     private void txtTelefonoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoClienteActionPerformed
-        /* try {
-            txtTelefonoCliente.getText();
-        } catch (NumberFormatException e) {
-            JOptionPane.showConfirmDialog(null, "Por favor ingresa solamente numeros", "Texto ingresado", JOptionPane.CANCEL_OPTION);
-        } */
+
     }//GEN-LAST:event_txtTelefonoClienteActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

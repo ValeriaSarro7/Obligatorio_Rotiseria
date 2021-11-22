@@ -3,20 +3,11 @@ package rotiseria.Interfaz;
 
 import dominio.Categoria;
 import dominio.Sistema;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- *
- * @author Usuario
- */
 public class VentanaCategoria extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaProducto
-     */
     private Sistema sistema;
 
     public VentanaCategoria(Sistema unSistema) {

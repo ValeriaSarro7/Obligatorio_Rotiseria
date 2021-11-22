@@ -8,15 +8,8 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- *
- * @author Usuario
- */
 public class VentanaProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaProductos
-     */
     private Sistema sistema;
 
     public VentanaProducto(Sistema sistema) {

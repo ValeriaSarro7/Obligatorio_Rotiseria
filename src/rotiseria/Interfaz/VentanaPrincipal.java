@@ -22,13 +22,7 @@ import static javax.swing.JOptionPane.showMessageDialog;
 import utils.OrdenAlfabetico;
 import utils.OrdenPrioridad;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
- * @author Usuario
- */
 public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChangeListener {
 
     private Sistema sistema;
@@ -48,26 +42,18 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
                 FileOutputStream archivo = null;
                 while (!guardado) {
                     try {
-                         guardado=true;
+                        guardado = true;
                         archivo = new FileOutputStream("salida");
-                        ObjectOutputStream out=new ObjectOutputStream(archivo);
-                        out.writeObject(sistema);
-                        out.close();
-                        showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
-                        System.exit (0);
-                        archivo.close();
-                        /* archivo = new FileOutputStream("salida.txt");
                         ObjectOutputStream out = new ObjectOutputStream(archivo);
                         out.writeObject(sistema);
                         out.close();
-                        guardado = true;
                         showMessageDialog(null, "¡Datos guardados exitosamente!", "¡Guardado!", JOptionPane.INFORMATION_MESSAGE);
                         System.exit(0);
-                        archivo.close();*/
+                        archivo.close();
                     } catch (IOException ex) {
-                        ex.printStackTrace();
-                        /* System.out.println("Error de archivo");
-                        System.exit(1);*/
+                        System.out.println("Error de archivo");
+                        System.exit(1);
+
                     }
                 }
             }
@@ -505,7 +491,6 @@ public class VentanaPrincipal extends javax.swing.JFrame implements PropertyChan
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        //this.agregarBotones(this.sistema.getListaCategorias().get(0).toString());
         this.cargarCombo();
         this.setCliente();
         this.mostrarTotal();

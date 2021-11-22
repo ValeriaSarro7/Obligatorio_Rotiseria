@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- *
- * @author Usuario
- */
+
 public class VentanaElegirCliente extends javax.swing.JFrame {
 
     private Sistema sistema;

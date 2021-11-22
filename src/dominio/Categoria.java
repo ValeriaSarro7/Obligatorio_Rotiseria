@@ -2,7 +2,6 @@
 package dominio;
 
 import java.io.Serializable;
-import java.util.*;
 
 public class Categoria implements Serializable{
     private String nombre;

@@ -5,19 +5,9 @@ import dominio.Pedido;
 import dominio.Producto;
 import dominio.Sistema;
 import java.util.ArrayList;
-import java.util.Iterator;
-import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- *
- * @author Usuario
- */
 public class VentanaPedido extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaPedido
-     */
     private Sistema sistema;
 
     public VentanaPedido(Sistema sistema) {
@@ -273,7 +263,6 @@ public class VentanaPedido extends javax.swing.JFrame {
         Pedido eleccion = (Pedido) lstPedidosPedido.getSelectedValue();
         int numero = eleccion.getNumero();
         setLista(eleccion.getListaProdcutos());
-        // lstProductoPedido.setListData(eleccion.getListaProdcutos().toArray());
         lblNumero.setText(String.valueOf(eleccion.getNumero()));
         lblClientePedidoSeleccionado.setText(eleccion.getUnCliente().getNombre());
         lblPrecioPedidoSeleccionado.setText("$" + Integer.toString(eleccion.getPrecioTotal()));
