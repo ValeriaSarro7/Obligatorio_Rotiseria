@@ -18,27 +18,28 @@ public class VentanaProducto extends javax.swing.JFrame {
      * Creates new form VentanaProductos
      */
     private Sistema sistema;
-    
+
     public VentanaProducto(Sistema sistema) {
         initComponents();
-        this.sistema=sistema;
+        this.sistema = sistema;
         listarCategorias();
     }
-    public boolean noExisteProducto(){
-        boolean esValido=true;
+
+    public boolean noExisteProducto() {
+        boolean esValido = true;
         esValido = !(this.sistema.existeProducto(txtNombreProducto.getText()));
         return esValido;
     }
-    
-    public boolean ingresaNombreProducto(){
+
+    public boolean ingresaNombreProducto() {
         boolean ingresoNombreProd = true;
-        if(txtNombreProducto.getText() == null || txtNombreProducto.getText().equals("") || txtNombreProducto.getText().trim().equals("")){
+        if (txtNombreProducto.getText() == null || txtNombreProducto.getText().equals("") || txtNombreProducto.getText().trim().equals("")) {
             ingresoNombreProd = false;
             showMessageDialog(null, "Ingrese el nombre del producto", "", JOptionPane.PLAIN_MESSAGE);
         }
         return ingresoNombreProd;
     }
-    
+
     public boolean precioNumerico() {
         boolean esNumerico = false;
         try {
@@ -49,19 +50,29 @@ public class VentanaProducto extends javax.swing.JFrame {
         }
         return esNumerico;
     }
-    public boolean ingresaPrecioProducto(){
+
+    public boolean ingresaPrecioProducto() {
         boolean ingresoPrecio = true;
-        if(txtPrecioProducto.getText() == null || txtPrecioProducto.getText().equals("") || txtPrecioProducto.getText().trim().equals("")){
+        if (txtPrecioProducto.getText() == null || txtPrecioProducto.getText().equals("") || txtPrecioProducto.getText().trim().equals("")) {
             ingresoPrecio = false;
             showMessageDialog(null, "Ingrese un precio", "", JOptionPane.PLAIN_MESSAGE);
         }
         return ingresoPrecio;
     }
-    
-    public void listarCategorias(){
+
+    public boolean seleccionaCategoria() {
+        boolean estaSeleccionada = true;
+        if (lstCategoriasProducto.getSelectedIndex() < 0) {
+            showMessageDialog(null, "Seleccione una categoría", "", JOptionPane.PLAIN_MESSAGE);
+            estaSeleccionada = false;
+        }
+        return estaSeleccionada;
+    }
+
+    public void listarCategorias() {
         lstCategoriasProducto.setListData(this.sistema.getListaCategorias().toArray());
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -267,13 +278,13 @@ public class VentanaProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarProductoActionPerformed
 
     private void btnAgregarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProductoActionPerformed
-        if(noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto() && precioNumerico()){
-            Producto unProducto=new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
-            ArrayList <Categoria> categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedIndices(),unProducto);
+        if (noExisteProducto() && this.ingresaNombreProducto() && this.ingresaPrecioProducto() && precioNumerico() && seleccionaCategoria()) {
+            Producto unProducto = new Producto(txtNombreProducto.getText(), Integer.parseInt(txtPrecioProducto.getText()));
+            ArrayList<Categoria> categoriasProducto = this.sistema.agregarCategoriasProducto(lstCategoriasProducto.getSelectedIndices(), unProducto);
             this.sistema.agregarProductoaLista(unProducto, categoriasProducto);
-            showMessageDialog(null,"¡Producto agregado con éxito!","¡Producto agregado!", JOptionPane.PLAIN_MESSAGE);
+            showMessageDialog(null, "¡Producto agregado con éxito!", "¡Producto agregado!", JOptionPane.PLAIN_MESSAGE);
             this.dispose();
-        }else if (!noExisteProducto()){
+        } else if (!noExisteProducto()) {
             showMessageDialog(null, "¡Ya existe el producto!\n Ingrese otro nombre o cancele la operación.", "¡Producto existe!", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_btnAgregarProductoActionPerformed
