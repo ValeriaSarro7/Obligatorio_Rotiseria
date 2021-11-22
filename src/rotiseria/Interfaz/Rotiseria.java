@@ -1,7 +1,9 @@
 //Agustina Chaparro 194551 Valeria Sarro 229531
 package rotiseria.Interfaz;
 
+import dominio.Categoria;
 import dominio.Cliente;
+import dominio.Producto;
 import dominio.Sistema;
 import java.io.*;
 import java.util.ArrayList;
@@ -26,43 +28,35 @@ public class Rotiseria {
             VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(sistema);
             ventanaPrincipal.setVisible(true);
         } else if (respuesta == 2) {
-            /* ArchivoLectura archivoEntrada = new ArchivoLectura("entrada.csv");
+            ArchivoLectura archivoEntrada = new ArchivoLectura("entrada.csv");
+            Sistema sistema = new Sistema();
             while (archivoEntrada.hayMasLineas()) {
                 String[] line = archivoEntrada.linea().split(";");
-                int numeroDeObjetosACrear;
-                if(line.length == 1){
-                
-                };
-                // caso numero de following lines
-                numeroDeObjetosACrear = Integer.parseInt(line[0]);
-
-            } */
-
+                int tipoDeObjetoACrear = -1; // 0 es clientes, 1 es categorias, 2 es productos
+                if (line.length == 1) {
+                    tipoDeObjetoACrear++;
+                } else {
+                    switch (tipoDeObjetoACrear) {
+                        case 0:
+                            Cliente cli = new Cliente(line[0], line[1], line[2]);
+                            sistema.agregarClientesALista(cli);
+                            break;
+                        case 1:
+                            Categoria cat = new Categoria(line[0], Integer.parseInt(line[1]), line[2]);
+                            sistema.agregarCategoriaALista(cat);
+                            break;
+                        case 2:
+                            Producto prod = new Producto(line[0], Integer.parseInt(line[1]));
+                            ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+                            categorias.add(sistema.darCategoria(line[2]));
+                            sistema.agregarProductoaLista(prod, categorias);
+                            break;
+                    }
+                }
+            }
+            VentanaPrincipal ventanaPrincipal = new VentanaPrincipal(sistema);
+            ventanaPrincipal.setVisible(true);
         }
-        
-        /* 
-        ArchivoLectura l = new ArchivoLectura();
-    int tipoDeObjetoACrear = -1; // 0 es users, 1 es categorias, 2 es productos
-    while (l.hayMasLineas()) {
-      String[] line = l.line().split(";");
-      if (line.length == 1) {
-       //dentro caso numero de following lines 
-        tipoDeObjetoACrear++;
-      } else {
-       switch (tipoDeObjetoACrear) {
-         case 0:
-           // caso user 
-           Cliente cli = new Cliente(line[0], line[1], line[2]);
-           //Haces lo que tengas que hacer con el cliente nuevo
-           break;
-         case 1:
-           
-       }
-      }
-      
-    }
-        */
-
     }
 
 }
